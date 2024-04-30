@@ -9,6 +9,7 @@ package mathebattles;
  * @author aitor
  */
 public class Criatura {
+    //Estos son los atributos de nuestro objeto, son las variables que le dan forma al objeto
     private String nombre;
     private int vida;
     private int ataque;
@@ -17,6 +18,11 @@ public class Criatura {
     private int velocidad;
     private Ataque[] ataques;
 
+    /*
+    Esto es un constructor, sirve para poder generar diferentes objetos de esta misma clase,
+    este en concreto es un constructor sobrecargado, tiene parametros de entrada que debemos rellenar
+    a la vez que generamos el objeto.
+    */
     public Criatura(String nombre, int vida, int ataque, int defensa, int tipo, int velocidad) {
         this.nombre = nombre;
         this.vida = vida;
@@ -25,15 +31,37 @@ public class Criatura {
         this.tipo = tipo;
         this.velocidad = velocidad;
     }
-
+    
+    /*
+    Esto es un Setter, en realidad no es más que un metodo pero que tiene un nombre comun por que es muy habitual su uso
+    */
     public void setAtaques(Ataque[] ataques) {
         this.ataques = ataques;
     }
 
     @Override
     public String toString() {
-        return "Criatura{" + "vida=" + vida + ", ataque=" + ataque + ", defensa=" + defensa + ", tipo=" + tipo + ", velocidad=" + velocidad + ", ataques=" + ataques + '}';
+        return nombre + " HP:" + vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad + ", ataques=" + ataques + ", c1=" + c1 + '}';
     }
     
+    //Introducir los ataques dentro de las criaturas
+    //Cosas de Ruben a medias porque no tiene mucha idea de pokemon
+    Criatura c1 = new Criatura("Poligon", vida, ataque, defensa, tipo, velocidad);
+    
+    public void Atacar(Ataque at, Criatura en){
+        float Rec_Dmg;
+        Rec_Dmg=((at.getPot()*(this.ataque/this.defensa))/30)*(STAB(at)*TAD(at, en)*(Crit*10));
+        dmg=(int)Rec_Dmg;
+    }
+    
+    private float STAB(Ataque at){
+        if(this.tipo==at.getTipo()){
+            return 1.5f;
+        }else{return 1;}
+    }
+    private float TAD(Ataque at,Criatura en){
+        
+        return 1;
+    }
     
 }
