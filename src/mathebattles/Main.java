@@ -3,6 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package mathebattles;
+/*
+Si el usuario acierta la cuenta en un tiempo limitado deberia 
+hacer daño critico o defensa critica.
+  o En caso del ataque no acertar es menos daño, acertar es daño normal y
+    acierto critico es más daño
+  o En caso de defensa no acertar es daño normal, acertar es reducir el daño, 
+*/
+
+
+
+
 
 /**
  *
