@@ -50,8 +50,8 @@ public class Criatura {
     
     public void Atacar(Ataque at, Criatura en){
         float Rec_Dmg;
-        Rec_Dmg=((at.getPot()*(this.ataque/this.defensa))/30)*(STAB(at)*TAD(at, en)*(Crit*10));
-        dmg=(int)Rec_Dmg;
+        //Rec_Dmg=((at.getPot()*(this.ataque/this.defensa))/30)*(STAB(at)*TAD(at, en)*(Crit*10));
+       // dmg=(int)Rec_Dmg;
     }
     
     private float STAB(Ataque at){

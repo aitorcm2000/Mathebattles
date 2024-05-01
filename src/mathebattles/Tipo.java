@@ -17,11 +17,10 @@ public class Tipo {
     private final int tipo6=6;
     public final int[][]efectividad={
             //tipo1,tipo2,tipo3,tipo4,tipo5,tipo6    
-    /*tipo1*/{0    ,0   ,0,0,0,0},
-    /*tipo2*/{0    ,0,0,0,0,0},
-    /*tipo3*/{0    ,0,0,0,0,0},
-    /*tipo4*/{0    ,0,0,0,0,0},
-    /*tipo5*/{0    ,0,0,0,0,0},
-    /*tipo6*/{0    ,0,0,0,0,0}};
-    }
+    /*tipo1*/{0    ,0    ,0    ,0    ,0    ,0},
+    /*tipo2*/{0    ,0    ,0    ,0    ,0    ,0},
+    /*tipo3*/{0    ,0    ,0    ,0    ,0    ,0},
+    /*tipo4*/{0    ,0    ,0    ,0    ,0    ,0},
+    /*tipo5*/{0    ,0    ,0    ,0    ,0    ,0},
+    /*tipo6*/{0    ,0    ,0    ,0    ,0    ,0}};
 }
