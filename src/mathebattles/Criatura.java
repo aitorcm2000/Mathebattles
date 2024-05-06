@@ -12,6 +12,7 @@ public class Criatura {
     //Estos son los atributos de nuestro objeto, son las variables que le dan forma al objeto
     private String nombre;
     private int vida;
+    private int vida_act;
     private int ataque;
     private int defensa;
     private int tipo;
@@ -26,6 +27,7 @@ public class Criatura {
     public Criatura(String nombre, int vida, int ataque, int defensa, int tipo, int velocidad) {
         this.nombre = nombre;
         this.vida = vida;
+        this.vida_act=vida;
         this.ataque = ataque;
         this.defensa = defensa;
         this.tipo = tipo;
@@ -41,17 +43,19 @@ public class Criatura {
 
     @Override
     public String toString() {
-        return nombre + " HP:" + vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad + ", ataques=" + ataques + ", c1=" + c1 + '}';
+        return nombre + " HP: "+vida_act+"/"+ vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad + ", ataques=" + ataques + ", c1=" + c1 + '}';
     }
     
     //Introducir los ataques dentro de las criaturas
     //Cosas de Ruben a medias porque no tiene mucha idea de pokemon
     Criatura c1 = new Criatura("Poligon", vida, ataque, defensa, tipo, velocidad);
     
-    public void Atacar(Ataque at, Criatura en){
+    public void Daño(int daño){this.vida_act-=daño;}
+    
+    public int Atacar(Ataque at, Criatura en){
         float Rec_Dmg;
-        //Rec_Dmg=((at.getPot()*(this.ataque/this.defensa))/30)*(STAB(at)*TAD(at, en)*(Crit*10));
-       // dmg=(int)Rec_Dmg;
+        Rec_Dmg=((at.getPot()*(this.ataque/this.defensa))/30)*(STAB(at)*TAD(at, en));
+        return (int)Rec_Dmg;
     }
     
     private float STAB(Ataque at){

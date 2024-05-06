@@ -20,10 +20,10 @@ public class Ataque {
         this.prio = prio;
         this.tipo = tipo;
     }
-  
+
     @Override
     public String toString() {
-        return "Ataque{" + "pot=" + pot + ", prio=" + prio + ", tipo=" + tipo + '}';
+        return "Ataque{" + "nombre=" + nombre + ", pot=" + pot + ", prio=" + prio + ", tipo=" + tipo + '}';
     }
 
     public String getNombre() {
