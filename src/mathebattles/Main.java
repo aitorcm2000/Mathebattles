@@ -55,6 +55,7 @@ public class Main {
                 new Principal().setVisible(true);
             }
         });
+        System.out.println("hola");
     }
     
 }
