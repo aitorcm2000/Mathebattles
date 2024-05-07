@@ -4,7 +4,7 @@
  */
 package mathebattles;
 
-import panel_inicio.Principal;
+import paneles.Principal;
 
 /*
 Si el usuario acierta la cuenta en un tiempo limitado deberia 
