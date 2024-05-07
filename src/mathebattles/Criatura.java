@@ -50,6 +50,8 @@ public class Criatura {
     //Cosas de Ruben a medias porque no tiene mucha idea de pokemon
     Criatura c1 = new Criatura("Poligon", vida, ataque, defensa, tipo, velocidad);
     
+    
+    
     public void Daño(int daño){this.vida_act-=daño;}
     
     public int Atacar(Ataque at, Criatura en){

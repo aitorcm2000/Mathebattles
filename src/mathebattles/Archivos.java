@@ -6,6 +6,7 @@ package mathebattles;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -39,6 +40,29 @@ public class Archivos {
             }
         }
     }
+    
+//    public void loadCars(){
+//        String aux;
+//        try{
+//            br=new BufferedReader(new FileReader(new File("cars.txt")));
+//            aux=br.readLine();
+//            while(aux!=null){
+//                String[] str=aux.split(";");
+//                Car car = new Car(str[0], str[1], str[2],str[3],Integer.parseInt(str[4]),Float.parseFloat(str[5]));
+//                insertCar(car);
+//                aux=br.readLine();
+//            }
+//            System.out.println("Data loaded");
+//        }catch(IOException ex){
+//            System.err.println(ex.getMessage());
+//        }finally{
+//            try{
+//                if(br!=null){br.close();}
+//            }catch(IOException ex){
+//                System.err.println(ex.getMessage());
+//            }
+//        }
+//    }
     
     
 }
