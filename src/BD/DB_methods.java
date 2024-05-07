@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import mathebattles.Score;
 import mathebattles.Usuario;
 
 public class DB_methods {
@@ -31,10 +32,10 @@ public class DB_methods {
     //DOES THE CAR EXIST
 
     /**
-     * Takes the parameter
-     * @param plate
-     * and executes a query searching for the number of instances
-     * of a car with the plate that equals the parameter
+     * Coje el parametro de entrada
+     * @param dni
+     * y ejecuta una query buscando al menos una instancia de
+     * un usuario cuyo DNI sea igual al insertado como parametro
      * @return
      */
     public static boolean usuarioExiste(String dni){
@@ -72,10 +73,19 @@ public class DB_methods {
         }
     }
     
-    //LOAD DATA FROM A .txt FILE
-    /**
-     *
-     */
+    public void mejoresScores(){
+        String q="SELECT * FROM score LIMIT 10";
+        try{
+            s=c.createStatement();
+            rs=s.executeQuery(q);
+            while(rs.next()){
+                Score s=new Score(rs.getInt(1),rs.getString(2), rs.getInt(3), rs.getInt(4));
+                System.out.println(s);
+            }
+        }catch(SQLException ex){
+            System.err.println(ex.getMessage());
+        }
+    }
     
     //STORE DATA FROM THE DB IN JAVA
 
