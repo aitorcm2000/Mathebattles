@@ -18,14 +18,7 @@ public class Score {
         this.dni = dni;
         this.reto = reto;
         this.puntos = puntos;
-    }
-
-    public Score(int id, String dni, int reto, int puntos) {
-        this.id = id;
-        this.dni = dni;
-        this.reto = reto;
-        this.puntos = puntos;
-    }
+    }    
 
     public String getDni() {
         return dni;

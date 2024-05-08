@@ -1,6 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * Aquí debería recogerse los metodos:
+ *      1.Comprobacion de Usuario
+ *      2.Insercion de Usuario
+ *      3.Insercion de Score
+ *      4.Query 10 mejores scores
+ *      5.Scores del Usuario
+ *      6.Mejor Score del Usuario
  */
 package BD;
 
@@ -29,8 +34,6 @@ public class DB_methods {
     private static ResultSet rs;
     private static BufferedReader br;
     
-    //DOES THE CAR EXIST
-
     /**
      * Coje el parametro de entrada
      * @param dni
@@ -54,16 +57,46 @@ public class DB_methods {
     }
     
     //INSERTION OF DATA
+    /**
+     * Recoge un objeto, "u", de la clase usuario, la cual recoge
+     * los datos del usuario para insertarlas en la tabla
+     * "Usuarios" en la base de datos.
+     * @param u 
+     */
     private static void insertUsuario(Usuario u){
         if(!usuarioExiste(u.getDni())){
-            String i="INSERT INTO usuarios VALUES(?,?,?,?,?)";
+            String i="INSERT INTO usuarios VALUES(?,?,?,?,?)"; //Statement preparado para la insercion de datos
+            try{
+                ps=c.prepareStatement(i);
+                ps.setString(1, u.getDni());    //DNI usuario (Dato UI)
+                ps.setInt(2, u.getAula());      //ID aula (Combobox UI)
+                ps.setInt(3, u.getCurso());     //ID curso (Combobox UI)
+                ps.setString(4, u.getAlias());  //Alias (Dato UI)
+                ps.setInt(5, u.getEdad());      //Edad (Dato UI)
+                
+                ps.executeUpdate();
+            }catch(SQLException ex){                    //La excepcion la dictamina MySQL, son errores de MySQL en general
+                System.out.println("Operation Failed");
+                System.err.println(ex.getMessage());
+            }            
+        }
+    }
+    
+    //LOS 1 SON PLACEHOLDER
+    //LOS 1 SON PLACEHOLDER
+    //LOS 1 SON PLACEHOLDER
+    //LOS 1 SON PLACEHOLDER
+    //LOS 1 SON PLACEHOLDER
+    //Van con datos del juego
+    
+    private static void insertScore(Usuario u){
+        if(!usuarioExiste(u.getDni())){
+            String i="INSERT INTO scores VALUES(?,?,?)";
             try{
                 ps=c.prepareStatement(i);
                 ps.setString(1, u.getDni());
-                ps.setInt(2, u.getAula());
-                ps.setInt(3, u.getCurso());
-                ps.setString(4, u.getAlias());
-                ps.setInt(5, u.getEdad());
+                ps.setInt(2, 1);//id reto
+                ps.setInt(3, 1);//puntos
                 
                 ps.executeUpdate();
             }catch(SQLException ex){
@@ -74,13 +107,35 @@ public class DB_methods {
     }
     
     public void mejoresScores(){
-        String q="SELECT * FROM score LIMIT 10";
+        String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "
+                +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
+                +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "
+                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DES LIMIT 10";
+        int con=0;
         try{
             s=c.createStatement();
             rs=s.executeQuery(q);
             while(rs.next()){
-                Score s=new Score(rs.getInt(1),rs.getString(2), rs.getInt(3), rs.getInt(4));
-                System.out.println(s);
+                con++;
+                System.out.println(con+" "+rs.getString(1)+" pts: "+rs.getInt(2));
+            }
+        }catch(SQLException ex){
+            System.err.println(ex.getMessage());
+        }
+    }
+    
+    public void usuarioPB(){
+        String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "  //1.Alias 2.Curso 3.Aula 4.Puntos
+                +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
+                +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "
+                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DES";
+        int con=0;
+        try{
+            s=c.createStatement();
+            rs=s.executeQuery(q);
+            while(rs.next()){
+                con++;
+                System.out.println(con+" "+rs.getString(1)+" pts: "+rs.getInt(2));
             }
         }catch(SQLException ex){
             System.err.println(ex.getMessage());
