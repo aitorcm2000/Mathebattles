@@ -87,10 +87,9 @@ public class DB_methods {
             try{
                 ps=c.prepareStatement(i);
                 ps.setString(1, u.getDni());    //DNI usuario (Dato UI)
-                ps.setInt(2, u.getAula());      //ID aula (Combobox UI)
-                ps.setInt(3, u.getCurso());     //ID curso (Combobox UI)
-                ps.setString(4, u.getAlias());  //Alias (Dato UI)
-                ps.setInt(5, u.getEdad());      //Edad (Dato UI)
+                ps.setInt(2, u.getCurso());     //ID curso (Combobox UI)
+                ps.setString(3, u.getAlias());  //Alias (Dato UI)
+                ps.setInt(4, u.getEdad());      //Edad (Dato UI)
                 
                 ps.executeUpdate();
             }catch(SQLException ex){                    //La excepcion la dictamina MySQL, son errores de MySQL en general
@@ -128,7 +127,7 @@ public class DB_methods {
         String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "
                 +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
                 +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "
-                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DES LIMIT 10";
+                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DESC LIMIT 10";
         int con=0;
         try{
             s=c.createStatement();
@@ -146,7 +145,7 @@ public class DB_methods {
         String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "  //1.Alias 2.Curso 3.Aula 4.Puntos
                 +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
                 +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "
-                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DES";
+                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DESC WHERE u.DNI_usuario=?";
         int con=0;
         try{
             s=c.createStatement();
@@ -158,29 +157,6 @@ public class DB_methods {
         }catch(SQLException ex){
             System.err.println(ex.getMessage());
         }
-    }
-    
-    //STORE DATA FROM THE DB IN JAVA
-
-    /**
-     *
-     * @return
-     */
-    public static Usuario recogerUsuario(){
-        String q="SELECT * FROM cars";
-        
-        try{
-            s=c.createStatement();
-            rs=s.executeQuery(q);
-            while(rs.next()){
-                Car car=new Car(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
-                cars.add(car);
-                System.out.println(c);
-            }
-        }catch(SQLException ex){
-            System.err.println(ex.getMessage());
-        }
-        return cars;
     }
     
 }

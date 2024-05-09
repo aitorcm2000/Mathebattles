@@ -6,9 +6,6 @@ package mathebattles;
 
 import javax.swing.SwingUtilities;
 import paneles.FV;
-import paneles.FrameVentana;
-import paneles.MMenu;
-import paneles.Principal;
 
 /*
 Si el usuario acierta la cuenta en un tiempo limitado deberia 

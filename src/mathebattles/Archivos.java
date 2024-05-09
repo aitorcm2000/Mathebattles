@@ -41,6 +41,25 @@ public class Archivos {
         }
     }
     
+    public void escribirHistorial(String input){
+        try{
+            fw = new FileWriter("Historico.txt", true);
+            bw = new BufferedWriter(fw);
+            bw.write(input);
+            bw.write(System.lineSeparator());
+        }catch(IOException ex){
+            System.err.println(ex.toString());
+        }finally{
+            if(bw!=null){
+                try{
+                    bw.close();
+                }catch(IOException ex){
+                    System.err.println(ex.toString());
+                }
+            }
+        }
+    }
+    
 //    public void loadCars(){
 //        String aux;
 //        try{
