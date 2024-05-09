@@ -4,6 +4,8 @@
  */
 package mathebattles;
 
+import javax.swing.SwingUtilities;
+import paneles.FV;
 import paneles.FrameVentana;
 import paneles.MMenu;
 import paneles.Principal;
@@ -27,10 +29,13 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        FrameVentana fp = new FrameVentana();
-        
-        fp.getContentPane().add(new MMenu());
+        public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                FV fv = new FV();
+                fv.setVisible(true);
+            }
+        });
     }
     
 }

@@ -10,21 +10,24 @@ package mathebattles;
  */
 public class Usuario {
     private String dni;
-    private int aula;
     private int curso;
     private String alias;
     private int edad;
+    public static Usuario us_act= new Usuario();
+    
+    public Usuario(){}
 
-    public Usuario() {
+    public Usuario(String dni, int curso, String alias, int edad) {
+        this.dni = dni;
+        this.curso = curso;
+        this.alias = alias;
+        this.edad = edad;
     }
+    
 
     //GETTERS
     public String getDni() {
         return dni;
-    }
-
-    public int getAula() {
-        return aula;
     }
 
     public int getCurso() {
@@ -43,10 +46,6 @@ public class Usuario {
     //SETTERS
     public void setDni(String dni) {
         this.dni = dni;
-    }
-
-    public void setAula(int aula) {
-        this.aula = aula;
     }
 
     public void setCurso(int curso) {

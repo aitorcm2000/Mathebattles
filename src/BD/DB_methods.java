@@ -49,11 +49,29 @@ public class DB_methods {
             rs=ps.executeQuery();
             rs.next();
             if(rs.getInt(1)>0){return true;}
+            recogeUsuario(dni);
         }catch(SQLException ex){
             System.out.println("Failed to execute");
             System.err.println(ex.getMessage());
         }
         return false;
+    }
+    
+    public static void recogeUsuario(String dni){
+        String q= "SELECT * FROM usuarios WHERE DNI_usuario=?";
+        try{
+            ps=c.prepareStatement(q);
+            ps.setString(1, dni);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                Usuario us= new Usuario(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+                Usuario.us_act=us;
+            }
+            
+        }catch(SQLException ex){
+            System.out.println("Failed to execute");
+            System.err.println(ex.getMessage());
+        }
     }
     
     //INSERTION OF DATA
@@ -148,8 +166,7 @@ public class DB_methods {
      *
      * @return
      */
-    public static List<Car> getCars(){
-        List<Car> cars = new ArrayList();
+    public static Usuario recogerUsuario(){
         String q="SELECT * FROM cars";
         
         try{
