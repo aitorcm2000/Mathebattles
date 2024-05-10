@@ -83,7 +83,7 @@ public class DB_methods {
      */
     private static void insertUsuario(Usuario u){
         if(!usuarioExiste(u.getDni())){
-            String i="INSERT INTO usuarios VALUES(?,?,?,?,?)"; //Statement preparado para la insercion de datos
+            String i="INSERT INTO usuarios VALUES(?,?,?,?)"; //Statement preparado para la insercion de datos
             try{
                 ps=c.prepareStatement(i);
                 ps.setString(1, u.getDni());    //DNI usuario (Dato UI)

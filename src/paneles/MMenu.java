@@ -4,12 +4,18 @@
  */
 package paneles;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author aitor
  */
 public class MMenu extends javax.swing.JPanel {
 
+    public static void setTITULO(JLabel TITULO) {
+        MMenu.TITULO = TITULO;
+    }
+    
     /**
      * Creates new form MMenu
      */
@@ -24,51 +30,84 @@ public class MMenu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        TITULO = new javax.swing.JLabel();
+        Boton_Jugar = new javax.swing.JButton();
+        Boton_Pts = new javax.swing.JButton();
+        Boton_Login = new javax.swing.JButton();
+        Boton_Salir = new javax.swing.JButton();
 
-        jLabel1.setText("Menu");
+        TITULO.setFont(new java.awt.Font("Noto Sans", 0, 48)); // NOI18N
+        TITULO.setText("Menu");
 
-        jButton1.setText("Login");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Boton_Jugar.setText("Jugar");
+        Boton_Jugar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                Boton_JugarMouseClicked(evt);
             }
         });
+        Boton_Jugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton_JugarActionPerformed(evt);
+            }
+        });
+
+        Boton_Pts.setText("Puntuaciones");
+
+        Boton_Login.setText("Log In");
+
+        Boton_Salir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(124, 124, 124)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Boton_Jugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(313, 313, 313)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(297, 297, 297)
-                        .addComponent(jButton1)))
-                .addContainerGap(431, Short.MAX_VALUE))
+                        .addComponent(Boton_Pts, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(Boton_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Boton_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TITULO)
+                .addGap(335, 335, 335))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel1)
-                .addGap(135, 135, 135)
-                .addComponent(jButton1)
-                .addContainerGap(455, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addComponent(TITULO)
+                .addGap(55, 55, 55)
+                .addComponent(Boton_Jugar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Boton_Login, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(Boton_Pts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(Boton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void Boton_JugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boton_JugarMouseClicked
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_Boton_JugarMouseClicked
+
+    private void Boton_JugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_JugarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Boton_JugarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton Boton_Jugar;
+    private javax.swing.JButton Boton_Login;
+    private javax.swing.JButton Boton_Pts;
+    private javax.swing.JButton Boton_Salir;
+    public static javax.swing.JLabel TITULO;
     // End of variables declaration//GEN-END:variables
 }

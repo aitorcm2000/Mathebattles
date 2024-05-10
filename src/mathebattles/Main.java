@@ -26,13 +26,18 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-        public static void main(String[] args) {
+    public static void main(String[] args) {        
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 FV fv = new FV();
                 fv.setVisible(true);
             }
         });
+        Hilo1 h1 = new Hilo1();
+        Hilo2 h2 = new Hilo2();
+        Thread t1 = new Thread (h1);
+        Thread t2 = new Thread (h2);
+        t1.start();t2.start();
     }
     
 }
