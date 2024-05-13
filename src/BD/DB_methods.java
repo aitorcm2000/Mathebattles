@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import mathebattles.Archivos;
 import mathebattles.Score;
 import mathebattles.Usuario;
 
@@ -123,7 +124,7 @@ public class DB_methods {
         }
     }
     
-    public void mejoresScores(){
+    public static void mejoresScores(){
         String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "
                 +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
                 +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "
@@ -134,14 +135,15 @@ public class DB_methods {
             rs=s.executeQuery(q);
             while(rs.next()){
                 con++;
-                System.out.println(con+" "+rs.getString(1)+" pts: "+rs.getInt(2));
+                String linea=(con+" "+rs.getString(1)+" pts: "+rs.getInt(2));
+                Archivos.escribirMejores(linea);
             }
         }catch(SQLException ex){
             System.err.println(ex.getMessage());
         }
     }
     
-    public void usuarioPB(){
+    public static void usuarioPB(){
         String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "  //1.Alias 2.Curso 3.Aula 4.Puntos
                 +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
                 +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "

@@ -34,6 +34,8 @@ public class FV extends JFrame implements ActionListener {
             cardLayout.show(cardPanel, "Atacar");
         } else if (e.getActionCommand().equals("Cambiar")) {
             cardLayout.show(cardPanel, "Cambiar");
+        } else if (e.getActionCommand().equalsIgnoreCase("Log In")){
+            cardLayout.show(cardPanel, "Log In");
         }
     }
     
@@ -46,11 +48,11 @@ public class FV extends JFrame implements ActionListener {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         
-        // Creamos y añadimos las pantallas al JPanel
-        MMenu screen1 = new MMenu();
-        Imagenes panel = new Imagenes("CampoBatalla.png");
+        
+        Imagenes panel = new Imagenes("./Recurso/CampoBatalla.png");
         panel.setLayout(new BorderLayout());
         cardPanel.add(panel, "Atacar");
+        
 
         JPanel screen2 = new JPanel();
         screen2.setBackground(Color.BLUE);

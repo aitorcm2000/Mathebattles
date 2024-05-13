@@ -25,40 +25,30 @@ public class LogScr extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
-        jLabel1.setText("jLabel1");
-
-        jButton1.setText("Menu");
+        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 48)); // NOI18N
+        jLabel1.setText("Log In");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(336, 336, 336)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(324, 324, 324)
-                        .addComponent(jButton1)))
-                .addContainerGap(404, Short.MAX_VALUE))
+                .addGap(328, 328, 328)
+                .addComponent(jLabel1)
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel1)
-                .addGap(67, 67, 67)
-                .addComponent(jButton1)
-                .addContainerGap(539, Short.MAX_VALUE))
+                .addContainerGap(575, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,7 +15,7 @@ import paneles.MMenu;
 public class Hilo2 implements Runnable {
     public void run(){
         int sec=0;
-        int aux=0;
+        int min=0;
         while(true){
             try {
                 Thread.sleep(1000);
@@ -23,7 +23,10 @@ public class Hilo2 implements Runnable {
                 Logger.getLogger(Hilo2.class.getName()).log(Level.SEVERE, null, ex);
             }
             sec++;
-            MMenu.TITULO.setText(sec+" s");
+            if(sec>=60){
+                sec=0;
+                min++;
+            }
         }
     }
 }

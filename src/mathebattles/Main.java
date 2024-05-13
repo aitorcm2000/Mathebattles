@@ -6,6 +6,7 @@ package mathebattles;
 
 import javax.swing.SwingUtilities;
 import paneles.FV;
+import paneles.MFrame;
 
 /*
 Si el usuario acierta la cuenta en un tiempo limitado deberia 
@@ -22,15 +23,15 @@ El acierto critico deberia venir de acertar en un tiempo reducido
  * @author aitor
  */
 public class Main {
-
+public static MFrame mf = new MFrame();
+public static FV fv = new FV();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {        
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                FV fv = new FV();
-                fv.setVisible(true);
+                mf.setVisible(true);
             }
         });
         Hilo1 h1 = new Hilo1();

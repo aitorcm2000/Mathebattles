@@ -23,6 +23,7 @@ public class Hilo1 implements Runnable{
                     case 1:
                         //Atacar menu : Deberia cambiar el layout del menu dentro del jpanel
                         System.out.println("Atacar");
+                        
                     break;
                     case 2:
                         //Cambiar menu : Deberia cambiar el layout del menu dentro del jpanel

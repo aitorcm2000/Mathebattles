@@ -4,17 +4,18 @@
  */
 package paneles;
 
+import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import static mathebattles.Main.fv;
+import static mathebattles.Main.mf;
+import static paneles.MFrame.cl;
+import static paneles.MFrame.pl;
 
 /**
  *
  * @author aitor
  */
 public class MMenu extends javax.swing.JPanel {
-
-    public static void setTITULO(JLabel TITULO) {
-        MMenu.TITULO = TITULO;
-    }
     
     /**
      * Creates new form MMenu
@@ -54,6 +55,11 @@ public class MMenu extends javax.swing.JPanel {
         Boton_Pts.setText("Puntuaciones");
 
         Boton_Login.setText("Log In");
+        Boton_Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton_LoginActionPerformed(evt);
+            }
+        });
 
         Boton_Salir.setText("Salir");
 
@@ -62,45 +68,51 @@ public class MMenu extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Boton_Jugar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Boton_Pts, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(Boton_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Boton_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(125, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TITULO)
-                .addGap(335, 335, 335))
+                        .addGap(114, 114, 114)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Boton_Pts, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Boton_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Boton_Jugar, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(322, 322, 322)
+                        .addComponent(TITULO)))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(39, 39, 39)
                 .addComponent(TITULO)
-                .addGap(55, 55, 55)
+                .addGap(64, 64, 64)
                 .addComponent(Boton_Jugar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Boton_Login, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addComponent(Boton_Pts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(45, 45, 45)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Boton_Pts, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Boton_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addComponent(Boton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void Boton_JugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boton_JugarMouseClicked
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:  
+        fv.setVisible(true);
     }//GEN-LAST:event_Boton_JugarMouseClicked
 
     private void Boton_JugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_JugarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Boton_JugarActionPerformed
+
+    private void Boton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_LoginActionPerformed
+        // TODO add your handling code here:
+        cl.show(pl, "Log In");
+    }//GEN-LAST:event_Boton_LoginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
