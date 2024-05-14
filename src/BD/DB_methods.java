@@ -37,20 +37,20 @@ public class DB_methods {
     
     /**
      * Coje el parametro de entrada
-     * @param dni
+     * @param alias
      * y ejecuta una query buscando al menos una instancia de
      * un usuario cuyo DNI sea igual al insertado como parametro
      * @return
      */
-    public static boolean usuarioExiste(String dni){
-        String q= "SELECT COUNT(DNI_usuario) FROM usuarios WHERE DNI_usuario=?";
+    public static boolean usuarioExiste(String alias){
+        String q= "SELECT COUNT(Alias) FROM usuarios WHERE Alias=?";
         try{
             ps=c.prepareStatement(q);
-            ps.setString(1, dni);
+            ps.setString(1, alias);
             rs=ps.executeQuery();
             rs.next();
             if(rs.getInt(1)>0){return true;}
-            recogeUsuario(dni);
+            recogeUsuario(alias);
         }catch(SQLException ex){
             System.out.println("Failed to execute");
             System.err.println(ex.getMessage());
@@ -75,6 +75,37 @@ public class DB_methods {
         }
     }
     
+    public static int buscaID_Curso(String curso){
+        String q= "SELECT ID_Curso FROM cursos WHERE Curso_nombre=?";
+        try{
+            ps=c.prepareStatement(q);
+            ps.setString(1, curso);
+            rs=ps.executeQuery();
+            rs.next();
+            System.out.println("IDCURSO :"+rs.getString(1));
+            return Integer.parseInt(rs.getString(1));
+        }catch(SQLException ex){
+            System.out.println("Fallo buscaID_Curso");
+            System.err.println(ex.getMessage());
+            return 1;
+        }  
+    }
+    
+    public static int buscaID_Aula(String aula){
+        String q= "SELECT ID_Aula FROM aulas WHERE Nombre_Aula=?";
+        try{
+            ps=c.prepareStatement(q);
+            ps.setString(1, aula);
+            rs=ps.executeQuery();
+            rs.next();
+            return Integer.parseInt(rs.getString(1));
+        }catch(SQLException ex){
+            System.out.println("Fallo buscaID_aula");
+            System.err.println(ex.getMessage());
+            return 1;
+        }
+    }
+    
     //INSERTION OF DATA
     /**
      * Recoge un objeto, "u", de la clase usuario, la cual recoge
@@ -82,21 +113,24 @@ public class DB_methods {
      * "Usuarios" en la base de datos.
      * @param u 
      */
-    private static void insertUsuario(Usuario u){
-        if(!usuarioExiste(u.getDni())){
-            String i="INSERT INTO usuarios VALUES(?,?,?,?)"; //Statement preparado para la insercion de datos
+    public static void insertUsuario(Usuario u){
+        if(usuarioExiste(u.getAlias())!=true){
+            String i="INSERT INTO usuarios (ID_Curso,Alias,edad,DNI_usuario) VALUES(?,?,?,?)"; //Statement preparado para la insercion de datos
             try{
                 ps=c.prepareStatement(i);
-                ps.setString(1, u.getDni());    //DNI usuario (Dato UI)
-                ps.setInt(2, u.getId_curso());  //ID curso (Combobox UI)
-                ps.setString(3, u.getAlias());  //Alias (Dato UI)
-                ps.setInt(4, u.getEdad());      //Edad (Dato UI)
-                
+
+                ps.setInt(1, u.getId_curso());  //ID curso (Combobox UI)
+                ps.setString(2, u.getAlias());  //Alias (Dato UI)
+                ps.setInt(3, u.getEdad());      //Edad (Dato UI)
+                ps.setString(4, u.getDni());    //DNI usuario (Dato UI)
+
                 ps.executeUpdate();
             }catch(SQLException ex){                    //La excepcion la dictamina MySQL, son errores de MySQL en general
-                System.out.println("Operation Failed");
+                System.out.println("Fallo insertar usuario");
                 System.err.println(ex.getMessage());
             }            
+        }else{
+            System.err.println("Usuario ya existe");
         }
     }
     
@@ -119,7 +153,7 @@ public class DB_methods {
                 
                 ps.executeUpdate();
             }catch(SQLException ex){
-                System.out.println("Operation Failed");
+                System.out.println("Fallo insertar Score");
                 System.err.println(ex.getMessage());
             }            
         }

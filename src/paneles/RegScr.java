@@ -4,6 +4,7 @@
  */
 package paneles;
 
+import BD.DB_methods;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -17,17 +18,20 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static mathebattles.Main.mf;
+import mathebattles.Usuario;
+import static paneles.MFrame.cl;
+import static paneles.MFrame.pl;
 
 /**
  *
  * @author aitor
  */
-public class LogScr extends javax.swing.JPanel {
+public class RegScr extends javax.swing.JPanel {
     private Dialog adv_conf;
     /**
      * Creates new form LogScr
      */
-    public LogScr() {
+    public RegScr() {
         initComponents();  
     }
     
@@ -161,26 +165,40 @@ public class LogScr extends javax.swing.JPanel {
     private void CB_CursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CB_CursoActionPerformed
-
+    
+    /**
+     * Al pulsar el boton para completar el registro se activa una ventana de aviso,
+     * en esta ventana se presentan los datos que se han introducido y pide confirmacion al usuario
+     * en caso positivo se envian los datos al 
+     * @param evt 
+     */
     private void B_Comp_RegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Comp_RegActionPerformed
         // TODO add your handling code here:
         BorderLayout borde = new BorderLayout();
-        GridLayout grid = new GridLayout(5, 0);
-        String str_datos="";
+        String str_ta="";
         adv_conf= new Dialog(mf,"Advertencia confirmacion", true);
         adv_conf.setLayout(borde);
+        JTextArea textoadv;
+        
         JButton conf = new JButton("Confirmar");
         conf.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae) {
-                adv_conf.setVisible(false);
+                Usuario.us_act.setAlias(TF_Nombre.getText());
+                Usuario.us_act.setEdad(getCB_Edad());
+                Usuario.us_act.setId_curso(DB_methods.buscaID_Curso(getCB_Curso()));
+                Usuario.us_act.setDni(TF_dni.getText());
+                DB_methods.insertUsuario(Usuario.us_act);
+                if(!DB_methods.usuarioExiste(Usuario.us_act.getAlias())){
+                    cl.show(pl, "Menu");
+                    adv_conf.setVisible(false);
+                }
             }            
         });
-        JTextArea textoadv = new JTextArea();
-        textoadv.setBounds(10, 10, 300, 200);
+        
         
         if(TF_dni.getText()!=null){
-            str_datos="Alias : "+TF_Nombre.getText()+"\n"
+            str_ta="Alias : "+TF_Nombre.getText()+"\n"
                     + "Edad : "+getCB_Edad()+"\n"
                     + "Curso : "+getCB_Curso()+"\n"
                     + "Aula : "+getCB_Aula();
@@ -190,10 +208,14 @@ public class LogScr extends javax.swing.JPanel {
             + "\nAlias: "+TF_Nombre+" Edad: "+CB_Edad
             + "\nCurso: "+CB_Curso+" Aula: "+CB_Aula));
         }
-
+        textoadv = new JTextArea(str_ta);
+        textoadv.setEditable(false);
+        textoadv.setBounds(50, 50, 50, 200);
+        
+        
         adv_conf.add(textoadv, BorderLayout.CENTER);
         adv_conf.add(conf,BorderLayout.SOUTH);
-        adv_conf.setSize(400, 300);
+        adv_conf.setSize(200, 200);
         adv_conf.setVisible(true);
         
     }//GEN-LAST:event_B_Comp_RegActionPerformed
@@ -206,8 +228,8 @@ public class LogScr extends javax.swing.JPanel {
         return CB_Curso.getSelectedItem().toString();
     }
 
-    public static String getCB_Edad() {
-        return CB_Edad.getSelectedItem().toString();
+    public static int getCB_Edad() {
+        return Integer.parseInt(CB_Edad.getSelectedItem().toString());
     }
 
     public static String getTF_Nombre() {
