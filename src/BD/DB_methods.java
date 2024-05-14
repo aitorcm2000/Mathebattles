@@ -58,14 +58,14 @@ public class DB_methods {
         return false;
     }
     
-    public static void recogeUsuario(String dni){
-        String q= "SELECT * FROM usuarios WHERE DNI_usuario=?";
+    public static void recogeUsuario(String alias){
+        String q= "SELECT * FROM usuarios WHERE Alias=?";
         try{
             ps=c.prepareStatement(q);
-            ps.setString(1, dni);
+            ps.setString(1, alias);
             rs=ps.executeQuery();
             while(rs.next()){
-                Usuario us= new Usuario(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+                Usuario us= new Usuario(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getInt(5), rs.getString (6));
                 Usuario.us_act=us;
             }
             
@@ -88,7 +88,7 @@ public class DB_methods {
             try{
                 ps=c.prepareStatement(i);
                 ps.setString(1, u.getDni());    //DNI usuario (Dato UI)
-                ps.setInt(2, u.getCurso());     //ID curso (Combobox UI)
+                ps.setInt(2, u.getId_curso());  //ID curso (Combobox UI)
                 ps.setString(3, u.getAlias());  //Alias (Dato UI)
                 ps.setInt(4, u.getEdad());      //Edad (Dato UI)
                 
@@ -109,12 +109,13 @@ public class DB_methods {
     
     private static void insertScore(Usuario u){
         if(!usuarioExiste(u.getDni())){
-            String i="INSERT INTO scores VALUES(?,?,?)";
+            String i="INSERT INTO scores VALUES(?,?,?,?)";
             try{
                 ps=c.prepareStatement(i);
-                ps.setString(1, u.getDni());
-                ps.setInt(2, 1);//id reto
-                ps.setInt(3, 1);//puntos
+                ps.setInt(1, 1);//id reto
+                ps.setInt(2, 1);//puntos
+                ps.setInt(3, 1);
+                ps.setInt(4, u.getId());
                 
                 ps.executeUpdate();
             }catch(SQLException ex){
@@ -125,10 +126,10 @@ public class DB_methods {
     }
     
     public static void mejoresScores(){
-        String q="SELECT u.Alias,c.Nombre_Curso,a.Nombre_Aula,s.Puntos FROM scores s "
-                +"INNER JOIN usuarios u ON u.DNI_usuario=s.DNI_usuario "
+        String q="SELECT u.Alias,c.Curso_nombre,a.Nombre_Aula,s.Puntos FROM scores s "
+                +"INNER JOIN usuarios u ON u.ID_usuario=s.ID_usuario "
                 +"INNER JOIN cursos c ON c.ID_curso=u.ID_Curso "
-                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula DESC LIMIT 10";
+                +"INNER JOIN aulas a ON a.ID_aula=s.ID_Aula ORDER BY s.Puntos DESC LIMIT 10";
         int con=0;
         try{
             s=c.createStatement();
@@ -136,6 +137,7 @@ public class DB_methods {
             while(rs.next()){
                 con++;
                 String linea=(con+" "+rs.getString(1)+" pts: "+rs.getInt(2));
+                System.out.println(linea);
                 Archivos.escribirMejores(linea);
             }
         }catch(SQLException ex){

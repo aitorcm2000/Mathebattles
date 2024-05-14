@@ -4,12 +4,12 @@
  */
 package paneles;
 
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import static mathebattles.Main.fv;
-import static mathebattles.Main.mf;
+//import static mathebattles.Main.fv;
+import BD.DB_methods;
+import mathebattles.Archivos;
 import static paneles.MFrame.cl;
 import static paneles.MFrame.pl;
+
 
 /**
  *
@@ -53,6 +53,11 @@ public class MMenu extends javax.swing.JPanel {
         });
 
         Boton_Pts.setText("Puntuaciones");
+        Boton_Pts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton_PtsActionPerformed(evt);
+            }
+        });
 
         Boton_Login.setText("Log In");
         Boton_Login.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +107,7 @@ public class MMenu extends javax.swing.JPanel {
 
     private void Boton_JugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boton_JugarMouseClicked
         // TODO add your handling code here:  
-        fv.setVisible(true);
+        //fv.setVisible(true);
     }//GEN-LAST:event_Boton_JugarMouseClicked
 
     private void Boton_JugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_JugarActionPerformed
@@ -111,8 +116,16 @@ public class MMenu extends javax.swing.JPanel {
 
     private void Boton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_LoginActionPerformed
         // TODO add your handling code here:
-        cl.show(pl, "Log In");
+        cl.show(pl, "LogIn");
     }//GEN-LAST:event_Boton_LoginActionPerformed
+
+    private void Boton_PtsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_PtsActionPerformed
+        // TODO add your handling code here:
+        cl.show(pl, "Score");
+        DB_methods.mejoresScores();
+        
+        Puntuaciones.Tabla_Score.setText(Archivos.leerMejores());
+    }//GEN-LAST:event_Boton_PtsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

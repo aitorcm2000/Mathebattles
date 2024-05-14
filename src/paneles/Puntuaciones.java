@@ -20,9 +20,7 @@ public class Puntuaciones extends javax.swing.JPanel {
      * Creates new form Puntuaciones
      */
     public Puntuaciones() {
-        DB_methods.mejoresScores();
         initComponents();
-        Tabla_Score.setText(Archivos.leerMejores());
     }
 
     public void setTabla_Score(JTextArea Tabla_Score) {
@@ -95,7 +93,7 @@ public class Puntuaciones extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_P_Menu;
-    private javax.swing.JTextArea Tabla_Score;
+    public static javax.swing.JTextArea Tabla_Score;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

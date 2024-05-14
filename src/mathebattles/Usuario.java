@@ -9,54 +9,72 @@ package mathebattles;
  * @author aitor
  */
 public class Usuario {
-    private String dni;
-    private int curso;
+    private int id_curso;
     private String alias;
     private int edad;
+    private int id;
+    private String dni;
+   
+    
     public static Usuario us_act= new Usuario();
     
     public Usuario(){}
 
-    public Usuario(String dni, int curso, String alias, int edad) {
-        this.dni = dni;
-        this.curso = curso;
+    public Usuario(int id_curso, String alias, int edad,int id, String dni) {
+        this.id_curso = id_curso;
         this.alias = alias;
         this.edad = edad;
-    }
-    
-
-    //GETTERS
-    public String getDni() {
-        return dni;
+        this.id=id;
+        this.dni = dni;
     }
 
-    public int getCurso() {
-        return curso;
+    public int getId_curso() {
+        return id_curso;
+    }
+
+    public void setId_curso(int id_curso) {
+        this.id_curso = id_curso;
     }
 
     public String getAlias() {
         return alias;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-    
-
-    //SETTERS
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public void setCurso(int curso) {
-        this.curso = curso;
-    }
-
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public int getEdad() {
+        return edad;
     }
 
     public void setEdad(int edad) {
         this.edad = edad;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public static Usuario getUs_act() {
+        return us_act;
+    }
+
+    public static void setUs_act(Usuario us_act) {
+        Usuario.us_act = us_act;
+    }
+    
+    
 }

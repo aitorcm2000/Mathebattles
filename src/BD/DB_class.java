@@ -18,9 +18,9 @@ public class DB_class {
     public static Connection con;
     public static final String USER="cliente";
     public static final String PSWD="ClienteG5";
-    public static final String DBN="Reto"; //DB name
+    public static final String DBN="reto"; //DB name
     public static final String JDBC_DRIVER="com.mysql.cj.jdbc.Driver";
-    public static final String URL="jdbc:mysql://192.168.24.6:3306/"+DBN;
+    public static final String URL="jdbc:mysql://192.168.24.54:3306/"+DBN;
     private static DB_class INSTANCE;
 
     /*In the constructor we must call for a new instance of the driver
