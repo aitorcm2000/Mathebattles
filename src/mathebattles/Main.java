@@ -26,13 +26,10 @@ El acierto critico deberia venir de acertar en un tiempo reducido
 public class Main {
 public static MFrame mf = new MFrame();
 
-//public static FV fv = new FV();
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {        
-        Archivos.escribirMejores("porque no escribe");
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 mf.setVisible(true);

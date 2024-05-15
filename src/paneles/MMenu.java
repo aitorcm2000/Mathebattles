@@ -107,7 +107,7 @@ public class MMenu extends javax.swing.JPanel {
 
     private void Boton_JugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boton_JugarMouseClicked
         // TODO add your handling code here:  
-        //fv.setVisible(true);
+        cl.show(pl, "Batalla");
     }//GEN-LAST:event_Boton_JugarMouseClicked
 
     private void Boton_JugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_JugarActionPerformed
@@ -116,7 +116,7 @@ public class MMenu extends javax.swing.JPanel {
 
     private void Boton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_LoginActionPerformed
         // TODO add your handling code here:
-        cl.show(pl, "LogIn");
+        cl.show(pl, "Log");
     }//GEN-LAST:event_Boton_LoginActionPerformed
 
     private void Boton_PtsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_PtsActionPerformed

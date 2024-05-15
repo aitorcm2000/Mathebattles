@@ -37,20 +37,19 @@ public class DB_methods {
     
     /**
      * Coje el parametro de entrada
-     * @param dni
+     * @param alias
      * y ejecuta una query buscando al menos una instancia de
      * un usuario cuyo DNI sea igual al insertado como parametro
      * @return
      */
-    public static boolean usuarioExiste(String dni){
-        String q= "SELECT COUNT(DNI_usuario) FROM usuarios WHERE DNI_usuario=?";
+    public static boolean usuarioExiste(String alias){
+        String q= "SELECT COUNT(ID_Usuario) FROM usuarios WHERE Alias=?";
         try{
             ps=c.prepareStatement(q);
-            ps.setString(1, dni);
+            ps.setString(1, alias);
             rs=ps.executeQuery();
             rs.next();
             if(rs.getInt(1)>0){return true;}
-            recogeUsuario(dni);
         }catch(SQLException ex){
             System.out.println("Failed to execute");
             System.err.println(ex.getMessage());

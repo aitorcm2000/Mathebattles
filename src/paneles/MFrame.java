@@ -31,8 +31,12 @@ public class MFrame extends JFrame{
         pl.add(mm,"Menu");
         Puntuaciones sc = new Puntuaciones();
         pl.add(sc,"Score");
+        RegScr rs = new RegScr();
+        pl.add(rs,"Reg");
         LogScr ls = new LogScr();
-        pl.add(ls,"LogIn");
+        pl.add(ls,"Log");
+        FV fv = new FV();
+        pl.add(fv,"Batalla");
         
         add(pl, BorderLayout.CENTER);
         
