@@ -4,6 +4,7 @@
  */
 package paneles;
 
+import BD.DB_methods;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -17,6 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static mathebattles.Main.mf;
+import mathebattles.Usuario;
+import static paneles.MFrame.cl;
+import static paneles.MFrame.pl;
 
 /**
  *
@@ -28,7 +32,8 @@ public class RegScr extends javax.swing.JPanel {
      * Creates new form LogScr
      */
     public RegScr() {
-        initComponents();  
+        initComponents();
+        Error_User.setVisible(false);
     }
     
     /**
@@ -51,6 +56,11 @@ public class RegScr extends javax.swing.JPanel {
         TF_dni = new javax.swing.JTextField();
         L_OPCIONAL = new javax.swing.JLabel();
         B_Comp_Reg = new javax.swing.JButton();
+        Error_User = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+
+        setMaximumSize(new java.awt.Dimension(800, 700));
+        setMinimumSize(new java.awt.Dimension(800, 700));
 
         L_REGISTRO.setFont(new java.awt.Font("Noto Sans", 0, 48)); // NOI18N
         L_REGISTRO.setText("Registro");
@@ -94,44 +104,59 @@ public class RegScr extends javax.swing.JPanel {
             }
         });
 
+        Error_User.setBackground(new java.awt.Color(153, 153, 153));
+        Error_User.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Error_User.setForeground(new java.awt.Color(229, 21, 21));
+        Error_User.setText("Ya existe este usuario");
+        Error_User.setFocusable(false);
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Error_User)
+                .addGap(339, 339, 339))
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 117, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(L_REGISTRO))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(B_Comp_Reg)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
                         .addComponent(L_OPCIONAL)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(L_ALIAS)
                             .addComponent(L_ALIAS1)
-                            .addComponent(L_CURSO)
                             .addComponent(L_AULA)
-                            .addComponent(L_DNI))
+                            .addComponent(L_DNI)
+                            .addComponent(L_CURSO))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TF_dni, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(CB_Aula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(CB_Curso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(CB_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TF_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(B_Comp_Reg)
-                        .addGap(161, 161, 161)))
-                .addGap(167, 167, 167))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(L_REGISTRO)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(TF_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(L_REGISTRO)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Error_User)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TF_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(L_ALIAS))
@@ -152,8 +177,10 @@ public class RegScr extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(L_AULA)
                     .addComponent(CB_Aula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addComponent(B_Comp_Reg)
+                .addGap(73, 73, 73)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(B_Comp_Reg)
+                    .addComponent(jButton1))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -165,35 +192,45 @@ public class RegScr extends javax.swing.JPanel {
     private void B_Comp_RegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Comp_RegActionPerformed
         // TODO add your handling code here:
         BorderLayout borde = new BorderLayout();
-        GridLayout grid = new GridLayout(5, 0);
-        String str_datos="";
+        String str_ta="";
         adv_conf= new Dialog(mf,"Advertencia confirmacion", true);
         adv_conf.setLayout(borde);
+        JTextArea textoadv;
+        
         JButton conf = new JButton("Confirmar");
         conf.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae) {
+                if(!DB_methods.usuarioExiste(TF_Nombre.getText())){
+                    Usuario.us_act.setAlias(TF_Nombre.getText());
+                    Usuario.us_act.setEdad(getCB_Edad());
+                    Usuario.us_act.setId_curso(DB_methods.buscaID_Curso(getCB_Curso()));
+                    Usuario.us_act.setDni(TF_dni.getText());
+                    DB_methods.insertUsuario(Usuario.us_act);
+                    cl.show(pl, "Menu");
+                }else{
+                    Error_User.setVisible(true);
+                }
+                
                 adv_conf.setVisible(false);
             }            
         });
-        JTextArea textoadv = new JTextArea();
+        textoadv = new JTextArea();
         textoadv.setBounds(10, 10, 300, 200);
         
-        if(TF_dni.getText()!=null){
-            str_datos="Alias : "+TF_Nombre.getText()+"\n"
-                    + "Edad : "+getCB_Edad()+"\n"
-                    + "Curso : "+getCB_Curso()+"\n"
-                    + "Aula : "+getCB_Aula();
-        }else{
-            adv_conf.add(new JLabel
-            ("Tus datos son :"
-            + "\nAlias: "+TF_Nombre+" Edad: "+CB_Edad
-            + "\nCurso: "+CB_Curso+" Aula: "+CB_Aula));
-        }
+        str_ta="Alias : "+TF_Nombre.getText()+"\n"
+                + "Edad : "+getCB_Edad()+"\n"
+                + "Curso : "+getCB_Curso()+"\n"
+                + "Aula : "+getCB_Aula();
+        
+        textoadv = new JTextArea(str_ta);
+        textoadv.setEditable(false);
+        textoadv.setBounds(50, 50, 50, 200);
 
+        
         adv_conf.add(textoadv, BorderLayout.CENTER);
         adv_conf.add(conf,BorderLayout.SOUTH);
-        adv_conf.setSize(400, 300);
+        adv_conf.setSize(200, 200);
         adv_conf.setVisible(true);
         
     }//GEN-LAST:event_B_Comp_RegActionPerformed
@@ -206,8 +243,8 @@ public class RegScr extends javax.swing.JPanel {
         return CB_Curso.getSelectedItem().toString();
     }
 
-    public static String getCB_Edad() {
-        return CB_Edad.getSelectedItem().toString();
+    public static int getCB_Edad() {
+        return Integer.parseInt(CB_Edad.getSelectedItem().toString());
     }
 
     public static String getTF_Nombre() {
@@ -224,6 +261,7 @@ public class RegScr extends javax.swing.JPanel {
     public static javax.swing.JComboBox<String> CB_Aula;
     public static javax.swing.JComboBox<String> CB_Curso;
     public static javax.swing.JComboBox<String> CB_Edad;
+    private javax.swing.JLabel Error_User;
     private javax.swing.JLabel L_ALIAS;
     private javax.swing.JLabel L_ALIAS1;
     private javax.swing.JLabel L_AULA;
@@ -233,5 +271,6 @@ public class RegScr extends javax.swing.JPanel {
     private javax.swing.JLabel L_REGISTRO;
     public static javax.swing.JTextField TF_Nombre;
     public static javax.swing.JTextField TF_dni;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
