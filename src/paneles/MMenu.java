@@ -107,11 +107,12 @@ public class MMenu extends javax.swing.JPanel {
 
     private void Boton_JugarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boton_JugarMouseClicked
         // TODO add your handling code here:  
-        cl.show(pl, "Batalla");
+        
     }//GEN-LAST:event_Boton_JugarMouseClicked
 
     private void Boton_JugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_JugarActionPerformed
         // TODO add your handling code here:
+        cl.show(pl, "Batalla");
     }//GEN-LAST:event_Boton_JugarActionPerformed
 
     private void Boton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_LoginActionPerformed
@@ -123,7 +124,6 @@ public class MMenu extends javax.swing.JPanel {
         // TODO add your handling code here:
         cl.show(pl, "Score");
         DB_methods.mejoresScores();
-        
         Puntuaciones.Tabla_Score.setText(Archivos.leerMejores());
     }//GEN-LAST:event_Boton_PtsActionPerformed
 

@@ -4,6 +4,11 @@
  */
 package mathebattles;
 
+import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import paneles.FV;
 import paneles.MFrame;
@@ -40,6 +45,29 @@ public static MFrame mf = new MFrame();
         Thread t1 = new Thread (h1);
         Thread t2 = new Thread (h2);
         t1.start();t2.start();
+        
+        
+//        JFrame frame = new JFrame("Ejemplo de JLabel con Imagen");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(300, 300);
+//        
+//        // Crear un JPanel
+//        JPanel panel = new JPanel();
+//        
+//        // Cargar la imagen
+//        ImageIcon imagen = new ImageIcon("CampoBatalla.png");
+//        
+//        // Crear el JLabel y pasar la imagen
+//        JLabel etiquetaConImagen = new JLabel(imagen);
+//        
+//        // Añadir el JLabel al JPanel
+//        panel.add(etiquetaConImagen);
+//        
+//        // Añadir el JPanel al JFrame
+//        frame.add(panel, BorderLayout.CENTER);
+//        
+//        // Hacer visible el JFrame
+//        frame.setVisible(true);
     }
     
 }

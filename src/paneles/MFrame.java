@@ -21,7 +21,7 @@ public class MFrame extends JFrame{
     public MFrame(){
         setTitle("MatheBattles");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 700);
+        setSize(800, 750);
         
         // Creamos el CardLayout y el JPanel para contener las pantallas
         cl = new CardLayout();

@@ -23,6 +23,10 @@ public class Archivos {
     static BufferedWriter bw = null;
     static String li_leida;
     
+    /**
+     * Guardar los resultados en un archivo recogiendo el string como input
+     * @param input 
+     */
     public static void Guardar_Res(String input){
         try{
             fw = new FileWriter("Resultados.txt", true);
@@ -42,6 +46,10 @@ public class Archivos {
         }
     }
     
+    /**
+     * Escribe linea a linea la query de mostrar todas las partidas
+     * @param input 
+     */
     public static void escribirHistorial(String input){
         try{
             fw = new FileWriter("Historico.txt", true);
@@ -61,6 +69,10 @@ public class Archivos {
         }
     }
     
+    /**
+     * Escribe linea a linea la query de los 10 mejores scores del juego
+     * @param input 
+     */
     public static void escribirMejores(String input){
         try{
             fw = new FileWriter("Mejores.txt", true);
@@ -80,6 +92,11 @@ public class Archivos {
         }
     }
     
+    /**
+     * Lee el archivo de los 10 mejores y los devuelve como un String
+     * que despues se mostrará en el panel de scores
+     * @return 
+     */
     public static String leerMejores(){
         String aux;
         String output="";

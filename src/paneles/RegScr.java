@@ -57,7 +57,7 @@ public class RegScr extends javax.swing.JPanel {
         L_OPCIONAL = new javax.swing.JLabel();
         B_Comp_Reg = new javax.swing.JButton();
         Error_User = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        B_Reg_Login = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(800, 700));
         setMinimumSize(new java.awt.Dimension(800, 700));
@@ -88,7 +88,7 @@ public class RegScr extends javax.swing.JPanel {
         L_ALIAS1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         L_ALIAS1.setText("Introduce tu edad :");
 
-        CB_Edad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99" }));
+        CB_Edad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12", "13", "14", "15", "16", "17", "18" }));
 
         L_DNI.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         L_DNI.setText("Introduce tu DNI :");
@@ -110,7 +110,12 @@ public class RegScr extends javax.swing.JPanel {
         Error_User.setText("Ya existe este usuario");
         Error_User.setFocusable(false);
 
-        jButton1.setText("jButton1");
+        B_Reg_Login.setText("Log In");
+        B_Reg_Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_Reg_LoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -129,7 +134,7 @@ public class RegScr extends javax.swing.JPanel {
                         .addGap(257, 257, 257)
                         .addComponent(B_Comp_Reg)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(B_Reg_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(L_OPCIONAL)
@@ -180,7 +185,7 @@ public class RegScr extends javax.swing.JPanel {
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(B_Comp_Reg)
-                    .addComponent(jButton1))
+                    .addComponent(B_Reg_Login))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -235,6 +240,11 @@ public class RegScr extends javax.swing.JPanel {
         
     }//GEN-LAST:event_B_Comp_RegActionPerformed
 
+    private void B_Reg_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Reg_LoginActionPerformed
+        // TODO add your handling code here:
+        cl.show(pl, "Log");
+    }//GEN-LAST:event_B_Reg_LoginActionPerformed
+
     public static String getCB_Aula() {
         return CB_Aula.getSelectedItem().toString();
     }
@@ -258,6 +268,7 @@ public class RegScr extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_Comp_Reg;
+    private javax.swing.JButton B_Reg_Login;
     public static javax.swing.JComboBox<String> CB_Aula;
     public static javax.swing.JComboBox<String> CB_Curso;
     public static javax.swing.JComboBox<String> CB_Edad;
@@ -271,6 +282,5 @@ public class RegScr extends javax.swing.JPanel {
     private javax.swing.JLabel L_REGISTRO;
     public static javax.swing.JTextField TF_Nombre;
     public static javax.swing.JTextField TF_dni;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
