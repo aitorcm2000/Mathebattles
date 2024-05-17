@@ -12,15 +12,16 @@ import java.util.Random;
  */
 public class Criatura {
     //Estos son los atributos de nuestro objeto, son las variables que le dan forma al objeto
-    private static Random rng = new Random ();
-    private static String nombre;
-    private static int vida;
+    private static final Random rng = new Random ();
+    private final String nombre;
+    private final int vida;
     private static int vida_act;
-    private static int ataque;
-    private static int defensa;
-    private static int tipo;
-    private static int velocidad;
+    private final int ataque;
+    private final int defensa;
+    private final int tipo;
+    private final int velocidad;
     private Ataque[] ataques;
+    
     
 
     /*
@@ -39,46 +40,48 @@ public class Criatura {
         this.ataques = new Ataque[4];
     }
     
-    /*
-    Esto es un Setter, en realidad no es más que un metodo pero que tiene un nombre comun por que es muy habitual su uso
-    */
+    
+    //SETTERS
+    
     public void setAtaques(Ataque[] ataques) {
         this.ataques = ataques;
     }
 
+    //GETTERS
+    
     public Ataque getAtaque(int i) {
         return ataques[i];
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public static int getVida() {
+    public int getVida() {
         return vida;
     }
 
-    public static int getVida_act() {
+    public int getVida_act() {
         return vida_act;
     }
 
-    public static int getAtaque() {
+    public int getAtaque() {
         return ataque;
     }
 
-    public static int getDefensa() {
+    public int getDefensa() {
         return defensa;
     }
 
-    public static int getTipo() {
+    public int getTipo() {
         return tipo;
     }
 
-    public static int getVelocidad() {
+    public int getVelocidad() {
         return velocidad;
     }
     
-
+    //ToString
     @Override
     public String toString() {
         return nombre + " HP: "+vida_act+"/"+ vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad + ", ataques=" + ataques + ", c1=" + c1 + '}';
@@ -99,7 +102,9 @@ public class Criatura {
      * de la criatura que lo llama
      * @param daño 
      */
-    public void Daño(int daño){this.vida_act-=daño;}
+    public static void Daño(int daño){
+        vida_act-=daño;
+    }
     
     /**
      * Calculo del daño que va a recibir la criatura enemiga
@@ -107,9 +112,9 @@ public class Criatura {
      * @param en
      * @return 
      */
-    public static int Atacar(Ataque at, Criatura en){
+    public int Atacar(Ataque at, Criatura en){
         float Rec_Dmg;
-        Rec_Dmg=((at.getPot()*(getAtaque()/getDefensa()))/30)*(STAB(at)*TAD(at, en));
+        Rec_Dmg=((at.getPot()*(this.getAtaque()/en.getDefensa()))/30)*(STAB(at)*TAD(at, en));
         return (int)Rec_Dmg;
     }
     
@@ -119,7 +124,7 @@ public class Criatura {
      * @param at
      * @return 
      */
-    private static float STAB(Ataque at){
+    private float STAB(Ataque at){
         if(getTipo()==at.getTipo()){
             return 1.5f;
         }else{return 1;}
@@ -131,7 +136,7 @@ public class Criatura {
      * @param en
      * @return 
      */
-    private static float TAD(Ataque at,Criatura en){
+    private float TAD(Ataque at,Criatura en){
         
         return 1;
     }
@@ -160,4 +165,6 @@ public class Criatura {
         }
         return 1;
     }
+    
+    
 }

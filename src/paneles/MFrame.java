@@ -6,7 +6,6 @@ package paneles;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -19,6 +18,7 @@ public class MFrame extends JFrame{
     public static JPanel pl;
     
     public MFrame(){
+        setResizable(false);
         setTitle("MatheBattles");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 750);
@@ -35,8 +35,10 @@ public class MFrame extends JFrame{
         pl.add(rs,"Reg");
         LogScr ls = new LogScr();
         pl.add(ls,"Log");
-        FV fv = new FV();
+        Panel_Juego fv = new Panel_Juego();
         pl.add(fv,"Batalla");
+        Panel_Cambio pc = new Panel_Cambio();
+        pl.add(pc,"Cambio");
         
         add(pl, BorderLayout.CENTER);
         

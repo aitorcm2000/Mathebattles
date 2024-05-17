@@ -32,14 +32,16 @@ public class Hilo1 implements Runnable{
             while(true){
                 System.out.println("Atacar o Cambiar");
                 op=sc.nextInt();
-                
+                paneles.Panel_Juego.setSpriteEn(op);
                 switch(op){
                     case 1:
+                        paneles.Panel_Juego.setSpriteEn(2);
                         //Atacar menu : Deberia cambiar el layout del menu dentro del jpanel
                         System.out.println("Atacar");
                         atk=sc.nextInt();
                         switch(Criatura.orden(cec_jugador, cec_enemigo, atk, atk)){
                             case 0:
+                                
                                 int daño=Criatura.Atacar(cec_jugador.getAtaque(atk), cec_enemigo);
                                 //Aqui van las mates
                                 System.out.println("Has hecho "+daño+" puntos de daño");

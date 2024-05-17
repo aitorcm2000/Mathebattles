@@ -14,19 +14,19 @@ import paneles.MMenu;
  */
 public class Hilo2 implements Runnable {
     public void run(){
-        int sec=0;
-        int min=0;
+        
         while(true){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(250);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Hilo2.class.getName()).log(Level.SEVERE, null, ex);
             }
-            sec++;
-            if(sec>=60){
-                sec=0;
-                min++;
-            }
+//            sec++;
+//            if(sec>=60){
+//                sec=0;
+//                min++;
+//            }
         }
     }
+
 }
