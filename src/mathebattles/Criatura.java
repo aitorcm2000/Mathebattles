@@ -4,7 +4,9 @@
  */
 package mathebattles;
 
+import java.util.ArrayList;
 import java.util.Random;
+
 
 /**
  *
@@ -20,16 +22,19 @@ public class Criatura {
     private final int defensa;
     private final int tipo;
     private final int velocidad;
-    private Ataque[] ataques;
-    
-    
+    private Ataque a1;
+    private Ataque a2;
+    private Ataque a3;
+    private Ataque a4;
 
     /*
     Esto es un constructor, sirve para poder generar diferentes objetos de esta misma clase,
     este en concreto es un constructor sobrecargado, tiene parametros de entrada que debemos rellenar
     a la vez que generamos el objeto.
     */
-    public Criatura(String nombre, int vida, int ataque, int defensa, int tipo, int velocidad) {
+
+
+    public Criatura(String nombre, int vida, int ataque, int defensa, int tipo, int velocidad, Ataque a1, Ataque a2, Ataque a3, Ataque a4) {
         this.nombre = nombre;
         this.vida = vida;
         this.vida_act=vida;
@@ -37,20 +42,26 @@ public class Criatura {
         this.defensa = defensa;
         this.tipo = tipo;
         this.velocidad = velocidad;
-        this.ataques = new Ataque[4];
-    }
-    
-    
-    //SETTERS
-    
-    public void setAtaques(Ataque[] ataques) {
-        this.ataques = ataques;
+        this.a1 = a1;
+        this.a2 = a2;
+        this.a3 = a3;
+        this.a4 = a4;
     }
 
-    //GETTERS
-    
-    public Ataque getAtaque(int i) {
-        return ataques[i];
+    public Ataque getA1() {
+        return a1;
+    }
+
+    public Ataque getA2() {
+        return a2;
+    }
+
+    public Ataque getA3() {
+        return a3;
+    }
+
+    public Ataque getA4() {
+        return a4;
     }
 
     public String getNombre() {
@@ -84,23 +95,20 @@ public class Criatura {
     //ToString
     @Override
     public String toString() {
-        return nombre + " HP: "+vida_act+"/"+ vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad + ", ataques=" + ataques + ", c1=" + c1 + '}';
+        return nombre + " HP: "+vida_act+"/"+ vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad;
     }
     
     /**
      * Creacion de criaturas
      */
-    public static Criatura c1 = new Criatura("PyroToro", 200, 80, 60, Tipo.FUEGO, 70);
-    public static Criatura c2 = new Criatura("Mathsaurio", 180, 70, 50, Tipo.PLANTA, 65);
-    public static Criatura c3 = new Criatura("Aguatron", 190, 75, 55, Tipo.AGUA, 68);
-    public static Criatura c4 = new Criatura("Voltalcula", 210, 85, 65, Tipo.ELECTRICO, 72);
-    public static Criatura c5 = new Criatura("Rockosaurio", 185, 72, 58, Tipo.ROCA, 66);
-    public static Criatura c6 = new Criatura("Algebird", 195, 82, 62, Tipo.VOLADOR, 69);
+    
+    
     
     /**
      * Resta el daño recibido a la vida actual instancia 
      * de la criatura que lo llama
-     * @param daño 
+     * @param daño     public ArrayList<Ataque> at_c1= new ArrayList<>();
+    at_c1
      */
     public static void Daño(int daño){
         vida_act-=daño;
@@ -150,6 +158,7 @@ public class Criatura {
      * @return 
      */
     public static int orden (Criatura us,Criatura en,int us_atk, int en_atk)  {
+        
         int orden=(us.velocidad+(us.ataques[us_atk].getPrio()*10))-(en.velocidad+(en.ataques[en_atk].getPrio()*10));
         if(orden>0){
             return 0;

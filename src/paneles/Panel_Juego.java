@@ -11,7 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JProgressBar;
+import mathebattles.Ataque;
 import mathebattles.Criatura;
+import mathebattles.Main;
+import mathebattles.Tipo;
 import static paneles.MFrame.cl;
 import static paneles.MFrame.pl;
 
@@ -22,7 +25,21 @@ import static paneles.MFrame.pl;
  * @author aitor
  */
 public class Panel_Juego extends JLayeredPane{
-    private static final Random rng = new Random();
+    private static Random rng = new Random();
+    
+    public static Ataque a1 = new Ataque("FlamaIntegral", 90, 1, 1);
+    public static Ataque a2 = new Ataque("RáfagaVectorial", 60, 1, 4);
+    public static Ataque a3 = new Ataque("QuemaduraLogarítmica", 95, 1, 1);
+    public static Ataque a4 = new Ataque("LlamaTrigonométrica", 100, 1, 1);
+    
+    public static Ataque[] atc1 = {a1,a2,a3,a4};
+    
+    public static Criatura c1 = new Criatura("PyroToro", 200, 80, 60, Tipo.FUEGO, 70,atc1);
+    public static Criatura c2 = new Criatura("Mathsaurio", 180, 70, 50, Tipo.PLANTA, 65,atc1);
+    public static Criatura c3 = new Criatura("Aguatron", 190, 75, 55, Tipo.AGUA, 68,atc1);
+    public static Criatura c4 = new Criatura("Voltalcula", 210, 85, 65, Tipo.ELECTRICO, 72,atc1);
+    public static Criatura c5 = new Criatura("Rockosaurio", 185, 72, 58, Tipo.ROCA, 66,atc1);
+    public static Criatura c6 = new Criatura("Algebird", 195, 82, 62, Tipo.VOLADOR, 69,atc1);
     
     //Declaracion de imagen de fondo
     private final ImageIcon fondo = new ImageIcon("./recursos/CampoBatalla.png");
@@ -78,8 +95,8 @@ public class Panel_Juego extends JLayeredPane{
     private static JLabel c_enemigo;
     private static JLabel c_aliado;
     
-    private static Criatura en_ac = Criatura.c1;
-    private static Criatura al_ac = Criatura.c1;
+    public static Criatura en_ac;
+    public static Criatura al_ac;
     private static JLabel nom_en;
     private static JLabel nom_al;
     
@@ -92,15 +109,32 @@ public class Panel_Juego extends JLayeredPane{
     JButton b_atacar = new JButton("Atacar");
     JButton b_cambiar = new JButton("Cambiar");
 
+    public static void setEn_ac(Criatura en_ac) {
+        Panel_Juego.en_ac = en_ac;
+    }
+
+    public static void setAl_ac(Criatura al_ac) {
+        Panel_Juego.al_ac = al_ac;
+    }
+
+    public static Criatura getEn_ac() {
+        return en_ac;
+    }
+
+    public static Criatura getAl_ac() {
+        return al_ac;
+    }
+
     
     public Panel_Juego() {
+        al_ac=c1;
+        en_ac=c3;
         colocarElementos();
         setSpriteEn(rng.nextInt(1, 4));
         setSpriteAl(rng.nextInt(1, 4));
     }
 
     private void colocarElementos(){
-        
         s_en_1 = new JLabel(s1_ajustado);
         s_en_2 = new JLabel(s2_ajustado);
         s_en_3 = new JLabel(s3_ajustado);
@@ -172,10 +206,10 @@ public class Panel_Juego extends JLayeredPane{
 
         add(nom_al,5);
         add(nom_en,5);
-        add(vidaEn,6);
-        add(vidaAl,6);
-        add(c_enemigo,7);
-        add(c_aliado,7);
+        add(vidaEn,7);
+        add(vidaAl,7);
+        add(c_enemigo,10);
+        add(c_aliado,10);
         add(l_fondo, 100); // Nivel 2 (encima del nivel 1)
     }
     
@@ -197,18 +231,21 @@ public class Panel_Juego extends JLayeredPane{
         
         switch (n) {
             case 1:
-               en_ac=Criatura.c1;
-               s_en_1.setVisible(true); 
+                setEn_ac(c1);
+                s_en_1.setVisible(true); 
             break;
             case 2:
-                en_ac=Criatura.c2;
+                setEn_ac(c2);
                 s_en_2.setVisible(true);
             break;
             case 3:
-                en_ac=Criatura.c3;
+                setEn_ac(c3);
                 s_en_3.setVisible(true);
             break;
         }
+        
+        setLimitVidaEn(getEn_ac());
+        setVidaEn(en_ac.getVida_act());
         nom_en.setText(en_ac.getNombre());
     }
     
@@ -219,24 +256,32 @@ public class Panel_Juego extends JLayeredPane{
         
         switch (n) {
             case 1:
-               al_ac=Criatura.c4;
+               setAl_ac(c4);
                s_al_1.setVisible(true); 
             break;
             case 2:
-                al_ac=Criatura.c5;
+                setAl_ac(c5);
                 s_al_2.setVisible(true);
             break;
             case 3:
-                al_ac=Criatura.c6;
+                setAl_ac(c6);
                 s_al_3.setVisible(true);
             break;
         }
+        
+        setLimitVidaAl(en_ac);
+        setVidaAl(en_ac.getVida_act());
         nom_al.setText(al_ac.getNombre());
     }
     
     public static void setLimitVidaEn(Criatura c){
         vidaEn.setMinimum(0);
         vidaEn.setMaximum(c.getVida());
+    }
+    
+    public static void setLimitVidaAl(Criatura c){
+        vidaAl.setMinimum(0);
+        vidaAl.setMaximum(c.getVida());
     }
     
     public static void setVidaEn(int vida){

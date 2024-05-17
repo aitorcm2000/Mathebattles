@@ -13,7 +13,8 @@ public class Ataque {
     private static int pot;
     private static int prio;
     private static int tipo;
-    private Tipo tipos = new Tipo();
+    
+    
 
     public Ataque(String nombre, int pot, int prio, int tipo) {
         this.nombre = nombre;
@@ -24,7 +25,28 @@ public class Ataque {
 
     @Override
     public String toString() {
-        return "Ataque{" + "nombre=" + nombre + ", pot=" + pot + ", prio=" + prio + ", tipo=" + tipo + '}';
+        String string_tipo="";
+        switch (tipo) {
+            case 1:
+               string_tipo="Fuego"; 
+            break;
+            case 2:
+                string_tipo="Planta";
+            break;
+            case 3:
+                string_tipo="Agua";
+            break;
+            case 4:
+                string_tipo="Electrico";
+            break;
+            case 5:
+                string_tipo="Roca";
+            break;
+            case 6:
+                string_tipo="Volador";
+            break;
+        }
+        return nombre + " Potencia: " + pot + " Tipo: " + string_tipo;
     }
 
     public String getNombre() {
@@ -45,24 +67,36 @@ public class Ataque {
     
     
     //Declarar todos los ataques, son ataques pokemon en version matematica
-    //Dejar a Ruben para que aprenda la estructura del constructor
 
-    Ataque[] ataques = {
-            new Ataque("FlamaIntegral", 90, 1, 1),
-            new Ataque("HojaDerivada", 70, 1, 2),
-            new Ataque("LímiteAcuático", 80, 1, 3),
-            new Ataque("RáfagaVectorial", 60, 1, 4),
-            new Ataque("RocaRiemann", 75, 1, 5),
-            new Ataque("RayoMatriz", 85, 1, 6),
-            new Ataque("QuemaduraLogarítmica", 95, 1, 1),
-            new Ataque("VidExponencial", 65, 1, 2),
-            new Ataque("OndaDiferencial", 85, 1, 3),
-            new Ataque("VientoLineal", 55, 1, 4),
-            new Ataque("DeslizamientoPolinómico", 80, 1, 5),
-            new Ataque("ZapCuadrático", 90, 1, 6),
-            new Ataque("LlamaTrigonométrica", 100, 1, 1),
-            new Ataque("HelechoFibonacci", 60, 1, 2),
-            new Ataque("SalpicaduraPitágoras", 75, 1, 3),
-            new Ataque("VueloEuclidiano", 65, 1, 4)
-        };
+
+
+    
+//    Ataque[] at_c2 = {
+//        new Ataque("HojaDerivada", 70, 1, 2),
+//        new Ataque("VidExponencial", 65, 1, 2),
+//        new Ataque("HelechoFibonacci", 60, 1, 2),
+//    };
+//    Ataque[] at_c3 = {
+//        new Ataque("LímiteAcuático", 80, 1, 3),
+//        new Ataque("SalpicaduraPitágoras", 75, 1, 3),
+//        new Ataque("RáfagaVectorial", 60, 1, 4),
+//        new Ataque("OndaDiferencial", 85, 1, 3),
+//    };
+//    
+    
+//            
+//            
+//            
+//            new Ataque("RocaRiemann", 75, 1, 5),
+//            new Ataque("RayoMatriz", 85, 1, 6),
+//            
+//            
+//            
+//            new Ataque("VientoLineal", 55, 1, 4),
+//            new Ataque("DeslizamientoPolinómico", 80, 1, 5),
+//            new Ataque("ZapCuadrático", 90, 1, 6),
+//            
+//            new Ataque("HelechoFibonacci", 60, 1, 2),
+//
+//            new Ataque("VueloEuclidiano", 65, 1, 4)
 }

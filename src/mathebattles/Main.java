@@ -30,11 +30,11 @@ El acierto critico deberia venir de acertar en un tiempo reducido
  */
 public class Main {
 public static MFrame mf = new MFrame();
-
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 mf.setVisible(true);
@@ -46,6 +46,7 @@ public static MFrame mf = new MFrame();
         Thread t2 = new Thread (h2);
         //t1.start();
         t2.start();
+        
         
         
 //        JFrame frame = new JFrame("Ejemplo de JLabel con Imagen");
