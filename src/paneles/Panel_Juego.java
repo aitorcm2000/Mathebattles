@@ -11,9 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JProgressBar;
+import mathebattles.Archivos;
 import mathebattles.Ataque;
 import mathebattles.Criatura;
-import mathebattles.Main;
+import mathebattles.Matematicas;
 import mathebattles.Tipo;
 import static paneles.MFrame.cl;
 import static paneles.MFrame.pl;
@@ -26,20 +27,23 @@ import static paneles.MFrame.pl;
  */
 public class Panel_Juego extends JLayeredPane{
     private static Random rng = new Random();
+    public static mathebattles.Matematicas mates = new Matematicas();
+    public static int puntos=0;
     
     public static Ataque a1 = new Ataque("FlamaIntegral", 90, 1, 1);
     public static Ataque a2 = new Ataque("RáfagaVectorial", 60, 1, 4);
     public static Ataque a3 = new Ataque("QuemaduraLogarítmica", 95, 1, 1);
-    public static Ataque a4 = new Ataque("LlamaTrigonométrica", 100, 1, 1);
+    public static Ataque a4 = new Ataque("LlamaTrigonométrica", 100, 1, 1);    
     
-    public static Ataque[] atc1 = {a1,a2,a3,a4};
+    public static Criatura c1 = new Criatura("PyroToro", 200, 80, 60, Tipo.FUEGO, 70, a1, a2, a3, a4);
+    public static Criatura c2 = new Criatura("Mathsaurio", 180, 70, 50, Tipo.PLANTA, 65, a1, a2, a3, a4);
+    public static Criatura c3 = new Criatura("Aguatron", 190, 75, 55, Tipo.AGUA, 68, a1, a2, a3, a4);
+    public static Criatura c4 = new Criatura("Voltalcula", 210, 85, 65, Tipo.ELECTRICO, 72, a1, a2, a3, a4);
+    public static Criatura c5 = new Criatura("Rockosaurio", 185, 72, 58, Tipo.ROCA, 66, a1, a2, a3, a4);
+    public static Criatura c6 = new Criatura("Algebird", 195, 82, 62, Tipo.VOLADOR, 69, a1, a2, a3, a4);
     
-    public static Criatura c1 = new Criatura("PyroToro", 200, 80, 60, Tipo.FUEGO, 70,atc1);
-    public static Criatura c2 = new Criatura("Mathsaurio", 180, 70, 50, Tipo.PLANTA, 65,atc1);
-    public static Criatura c3 = new Criatura("Aguatron", 190, 75, 55, Tipo.AGUA, 68,atc1);
-    public static Criatura c4 = new Criatura("Voltalcula", 210, 85, 65, Tipo.ELECTRICO, 72,atc1);
-    public static Criatura c5 = new Criatura("Rockosaurio", 185, 72, 58, Tipo.ROCA, 66,atc1);
-    public static Criatura c6 = new Criatura("Algebird", 195, 82, 62, Tipo.VOLADOR, 69,atc1);
+    public static Criatura[] eq_al={c4,c5,c6};
+    public static Criatura[] eq_en={c1,c2,c3};
     
     //Declaracion de imagen de fondo
     private final ImageIcon fondo = new ImageIcon("./recursos/CampoBatalla.png");
@@ -95,12 +99,12 @@ public class Panel_Juego extends JLayeredPane{
     private static JLabel c_enemigo;
     private static JLabel c_aliado;
     
-    public static Criatura en_ac;
-    public static Criatura al_ac;
+    public static int en_ac;
+    public static int al_ac;
     private static JLabel nom_en;
     private static JLabel nom_al;
     
-    JLabel hp_t_al;
+    
     
     private static JProgressBar vidaEn= new JProgressBar();
     private static JProgressBar vidaAl= new JProgressBar();
@@ -109,29 +113,38 @@ public class Panel_Juego extends JLayeredPane{
     JButton b_atacar = new JButton("Atacar");
     JButton b_cambiar = new JButton("Cambiar");
 
-    public static void setEn_ac(Criatura en_ac) {
+    public static Criatura[] getEq_al() {
+        return eq_al;
+    }
+
+    public static Criatura[] getEq_en() {
+        return eq_en;
+    }
+
+    public static void setEn_ac(int en_ac) {
         Panel_Juego.en_ac = en_ac;
     }
 
-    public static void setAl_ac(Criatura al_ac) {
+    public static void setAl_ac(int al_ac) {
         Panel_Juego.al_ac = al_ac;
     }
 
-    public static Criatura getEn_ac() {
+    public static int getEn_ac() {
         return en_ac;
     }
 
-    public static Criatura getAl_ac() {
+    public static int getAl_ac() {
         return al_ac;
     }
 
     
     public Panel_Juego() {
-        al_ac=c1;
-        en_ac=c3;
+        al_ac=0;
+        en_ac=0;
         colocarElementos();
-        setSpriteEn(rng.nextInt(1, 4));
-        setSpriteAl(rng.nextInt(1, 4));
+        setSpriteEn(en_ac);
+        setSpriteAl(al_ac);
+        System.out.println(eq_al[al_ac].getVida_act());
     }
 
     private void colocarElementos(){
@@ -160,6 +173,12 @@ public class Panel_Juego extends JLayeredPane{
         
         b_atacar.setVisible(true);
         b_cambiar.setVisible(true);
+        
+        b_atacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_atacar_pulsado(evt);
+            }
+        });
         
         b_cambiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +241,47 @@ public class Panel_Juego extends JLayeredPane{
         // TODO add your handling code here:
         cl.show(pl, "Cambio");
     } 
+    
+    private void b_atacar_pulsado(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        String enunciado="";
+        int resultado;
+        resultado=mates.genSuma(rng.nextInt(1, 4));
+        
+        enunciado="Resuelve la siguiente operacion: "
+                +mates.getN1()+mates.getOperacion()+mates.getN2();
+        Panel_ataques.setAt1(enunciado);
+        int op=rng.nextInt(4);
+        System.out.println(op);
+        System.out.println("Resultado :"+resultado);
+        switch (op) {
+            case 0:
+                Panel_ataques.setB_at1(""+resultado);
+                Panel_ataques.setB_at2(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at3(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at4(""+mates.opcion(resultado+rng.nextInt(2)));
+            break;
+            case 1:
+                Panel_ataques.setB_at1(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at2(""+resultado);
+                Panel_ataques.setB_at3(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at4(""+mates.opcion(resultado+rng.nextInt(2)));
+            break;
+            case 2:
+                Panel_ataques.setB_at1(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at2(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at3(""+resultado);
+                Panel_ataques.setB_at4(""+mates.opcion(resultado+rng.nextInt(2)));
+            break;
+            case 3:
+                Panel_ataques.setB_at1(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at2(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at3(""+mates.opcion(resultado+rng.nextInt(2)));
+                Panel_ataques.setB_at4(""+resultado);
+            break;
+        }
+        cl.show(pl, "Ataques");
+    } 
 
     
     public static void setSpriteEn(int n){
@@ -230,23 +290,23 @@ public class Panel_Juego extends JLayeredPane{
         s_en_3.setVisible(false);
         
         switch (n) {
-            case 1:
-                setEn_ac(c1);
+            case 0:
+                setEn_ac(0);
                 s_en_1.setVisible(true); 
             break;
-            case 2:
-                setEn_ac(c2);
+            case 1:
+                setEn_ac(1);
                 s_en_2.setVisible(true);
             break;
-            case 3:
-                setEn_ac(c3);
+            case 2:
+                setEn_ac(2);
                 s_en_3.setVisible(true);
             break;
         }
         
-        setLimitVidaEn(getEn_ac());
-        setVidaEn(en_ac.getVida_act());
-        nom_en.setText(en_ac.getNombre());
+        setLimitVidaEn(eq_en[getEn_ac()]);
+        setVidaEn(eq_en[getEn_ac()].getVida_act());
+        nom_en.setText(eq_en[getEn_ac()].getNombre());
     }
     
     public static void setSpriteAl(int n){
@@ -255,23 +315,23 @@ public class Panel_Juego extends JLayeredPane{
         s_al_3.setVisible(false);
         
         switch (n) {
-            case 1:
-               setAl_ac(c4);
+            case 0:
+               setAl_ac(0);
                s_al_1.setVisible(true); 
             break;
-            case 2:
-                setAl_ac(c5);
+            case 1:
+                setAl_ac(1);
                 s_al_2.setVisible(true);
             break;
-            case 3:
-                setAl_ac(c6);
+            case 2:
+                setAl_ac(2);
                 s_al_3.setVisible(true);
             break;
         }
         
-        setLimitVidaAl(en_ac);
-        setVidaAl(en_ac.getVida_act());
-        nom_al.setText(al_ac.getNombre());
+        setLimitVidaAl(eq_al[getAl_ac()]);
+        setVidaAl(eq_al[getAl_ac()].getVida_act());
+        nom_al.setText(eq_al[getAl_ac()].getNombre());
     }
     
     public static void setLimitVidaEn(Criatura c){
@@ -293,30 +353,20 @@ public class Panel_Juego extends JLayeredPane{
     }
     public static void bajaVidaEn(int daño,Criatura c){
         int vida_actual=c.getVida_act();
-        for(int i=daño;i>0;i--){
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException ex) {
-                System.err.println(ex.getMessage());
-            }
+        for(int i=daño;i>0;i--){            
             vida_actual--;
             paneles.Panel_Juego.setVidaEn(vida_actual);
         }
-        Criatura.Daño(daño);
+        c.Daño(daño);
     }
     
     public static void bajaVidaAl(int daño,Criatura c){
         int vida_actual=c.getVida_act();
-        for(int i=daño;i>0;i--){
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException ex) {
-                System.err.println(ex.getMessage());
-            }
+        for(int i=daño;i>0;i--){            
             vida_actual--;
             paneles.Panel_Juego.setVidaAl(vida_actual);
         }
-        Criatura.Daño(daño);
+        c.Daño(daño);
     }
     
 }

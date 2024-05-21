@@ -32,9 +32,52 @@ public class Archivos {
      */
     public static void Guardar_Res(String input){
         try{
-            fw = new FileWriter("Resultados.txt", true);
+            fw = new FileWriter("Resultados.txt",true);
             bw = new BufferedWriter(fw);
             bw.write(input);
+            bw.write(System.lineSeparator());
+        }catch(IOException ex){
+            System.err.println(ex.toString());
+        }finally{
+            if(bw!=null){
+                try{
+                    bw.close();
+                }catch(IOException ex){
+                    System.err.println(ex.toString());
+                }
+            }
+        }
+    }
+    /**
+     * Reseta el archivo de resultados
+     */
+    public static void Reset_Res(){
+        try{
+            fw = new FileWriter("Resultados.txt");
+            bw = new BufferedWriter(fw);
+            bw.write("");
+            bw.write(System.lineSeparator());
+        }catch(IOException ex){
+            System.err.println(ex.toString());
+        }finally{
+            if(bw!=null){
+                try{
+                    bw.close();
+                }catch(IOException ex){
+                    System.err.println(ex.toString());
+                }
+            }
+        }
+    }
+    
+    /**
+     * Resetea el archivo de mejores
+     */
+    public static void Reset_Mejores(){
+        try{
+            fw = new FileWriter("Mejores.txt");
+            bw = new BufferedWriter(fw);
+            bw.write("");
             bw.write(System.lineSeparator());
         }catch(IOException ex){
             System.err.println(ex.toString());
@@ -55,7 +98,7 @@ public class Archivos {
      */
     public static void escribirHistorial(String input){
         try{
-            fw = new FileWriter("Historico.txt", true);
+            fw = new FileWriter("Historico.txt",true);
             bw = new BufferedWriter(fw);
             bw.write(input);
             bw.write(System.lineSeparator());
@@ -107,7 +150,7 @@ public class Archivos {
             br=new BufferedReader(new FileReader(new File("Mejores.txt")));
             aux=br.readLine();
             while(aux!=null){
-                output=aux+"\n";
+                output+=aux+"\n";
                 aux=br.readLine();
             }
         }catch(IOException ex){
@@ -122,7 +165,38 @@ public class Archivos {
         return output;
     }
     
-     public static void escribirArchivoObjetos(Usuario us) {
+    /**
+     * Lee el archivo de resultados
+     * @return 
+     */
+    public static String leerResultados(){
+        String aux;
+        String output="";
+        try{
+            br=new BufferedReader(new FileReader(new File("Resultados.txt")));
+            aux=br.readLine();
+            while(aux!=null){
+                output+=aux+"\n";
+                aux=br.readLine();
+            }
+        }catch(IOException ex){
+            System.err.println(ex.getMessage());
+        }finally{
+            try{
+                if(br!=null){br.close();}
+            }catch(IOException ex){
+                System.err.println(ex.getMessage());
+            }
+        }
+        
+        return output;
+    }
+    
+    /**
+     * Escribe el archivo de objetos
+     * @param us 
+     */
+    public static void escribirArchivoObjetos(Usuario us) {
         ObjectOutputStream fo = null;
         File archivo=new File("Usuarios.txt");
         try {
@@ -153,13 +227,13 @@ public class Archivos {
      * lee el fichero de proyectos y crea una colección con los datos
      *
      * param nombreArchivo nombre del archivo donde se escribe
-     * @return List<Proyecto> -lista de los proyectos
+     * @return 
      *
      */
-    public static List<Usuario> leerArchivoObjetos(String nombrefichero) {
+    public static List<Usuario> leerArchivoObjetos() {
         List<Usuario> usuarios = new ArrayList<>();
         ObjectInputStream os = null;
-         File archivo=new File(nombrefichero);
+        File archivo=new File("usuarios.txt");
        
         try {
             os = new ObjectInputStream(new FileInputStream(archivo));
@@ -198,7 +272,7 @@ public class Archivos {
         return usuarios;
     }
     
-    public void a(){
+    public static void generaXML(){
         try {
             // Crear un constructor de documentos
             DocumentBuilderFactory factory =
@@ -209,33 +283,26 @@ public class Archivos {
             Document document = builder.newDocument();
             
             // Crear el elemento raíz
-            Element root = document.createElement("libros");
+            Element root = document.createElement("Usuarios");
             document.appendChild(root);
             
             // Crear elementos libro
-            Element libro1 = document.createElement("libro");
-            Element titulo1 = document.createElement("titulo");
-            titulo1.appendChild(document.createTextNode("El Quijote"));
-            Element autor1 = document.createElement("autor");
-            autor1.appendChild(document.createTextNode("M. de Cervantes"));
-            libro1.appendChild(titulo1);
-            libro1.appendChild(autor1);
-            root.appendChild(libro1);
-            Element libro2 = document.createElement("libro");
-            Element titulo2 = document.createElement("titulo");
-            titulo2.appendChild(document.createTextNode("Don Juan Tenorio"));
-            Element autor2 = document.createElement("autor");
-            autor2.appendChild(document.createTextNode("José Zorrilla"));
-            libro2.appendChild(titulo2);
-            libro2.appendChild(autor2);
-            root.appendChild(libro2);
+            Element usuario = document.createElement("Usuario");
+            Element edad = document.createElement("Edad");
+            edad.appendChild(document.createTextNode(""+Usuario.us_act.getEdad()));
+            Element alias = document.createElement("Alias");
+            alias.appendChild(document.createTextNode(Usuario.us_act.getAlias()));
+            usuario.appendChild(edad);
+            usuario.appendChild(alias);
+            root.appendChild(usuario);
+            
             
             // Escribir el documento XML en un archivo
             TransformerFactory transformerFactory =
             TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File("libros.xml"));
+            StreamResult result = new StreamResult(new File("Usuarios.xml"));
             transformer.transform(source, result);
             System.out.println("Documento XML creado exitosamente.");
         } catch (Exception e) {

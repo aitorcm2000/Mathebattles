@@ -14,18 +14,12 @@ package BD;
  * @author aitor
  */
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import mathebattles.Archivos;
-import mathebattles.Score;
 import mathebattles.Usuario;
 
 public class DB_methods {
@@ -105,6 +99,21 @@ public class DB_methods {
         }
     }
     
+    public static int buscaID_Usuario(String alias){
+        String q= "SELECT ID_Usuario FROM usuarios WHERE Alias=?";
+        try{
+            ps=c.prepareStatement(q);
+            ps.setString(1, alias);
+            rs=ps.executeQuery();
+            rs.next();
+            return Integer.parseInt(rs.getString(1));
+        }catch(SQLException ex){
+            System.out.println("Fallo buscaID_Usuario");
+            System.err.println(ex.getMessage());
+            return 1;
+        }
+    }
+    
     //INSERTION OF DATA
     /**
      * Recoge un objeto, "u", de la clase usuario, la cual recoge
@@ -140,15 +149,19 @@ public class DB_methods {
     //LOS 1 SON PLACEHOLDER
     //Van con datos del juego
     
-    private static void insertScore(Usuario u){
-        if(!usuarioExiste(u.getDni())){
-            String i="INSERT INTO scores VALUES(?,?,?,?)";
+    public static void insertScore(Usuario u){
+        if(!usuarioExiste(u.getAlias())){
+            String i="INSERT INTO scores (ID_Reto,Puntos,ID_Aula,ID_Usuario) VALUES(?,?,?,?)";
             try{
                 ps=c.prepareStatement(i);
                 ps.setInt(1, 1);//id reto
-                ps.setInt(2, 1);//puntos
-                ps.setInt(3, 1);
+                System.out.println("Me");
+                ps.setInt(2, u.getScore());//puntos
+                System.out.println("Cago");
+                ps.setInt(3, u.getId_clase());
+                System.out.println("En dios");
                 ps.setInt(4, u.getId());
+                System.err.println("funciona");
                 
                 ps.executeUpdate();
             }catch(SQLException ex){

@@ -1,0 +1,7 @@
+
+Operacion -53+-81=-134
+Tu respuesta : -179 es incorrecta
+Operacion 19+-64=-45
+Tu respuesta : -45 es correcta
+Operacion -764+670=-94
+Tu respuesta : -94 es correcta

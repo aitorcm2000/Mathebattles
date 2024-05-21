@@ -4,6 +4,8 @@
  */
 package mathebattles;
 
+import BD.DB_methods;
+
 /**
  *
  * @author aitor
@@ -13,7 +15,9 @@ public class Usuario {
     private String alias;
     private int edad;
     private int id;
+    private int id_clase;
     private String dni;
+    private static int score=0;
    
     
     public static Usuario us_act= new Usuario();
@@ -75,6 +79,23 @@ public class Usuario {
     public static void setUs_act(Usuario us_act) {
         Usuario.us_act = us_act;
     }
+
+    public void setScore() {
+        this.score ++;
+    }
+
+    public static int getScore() {
+        return score;
+    }
+
+    public void setId_clase(int id_clase) {
+        this.id_clase = id_clase;
+    }
+
+    public int getId_clase() {
+        return id_clase;
+    }
+    
     
     
 }

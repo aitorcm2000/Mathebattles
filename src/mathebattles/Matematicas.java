@@ -15,6 +15,7 @@ public class Matematicas {
     private int n1;
     private int n2;
     private String operacion="";
+    private int resultado;
     private static Archivos arc = new Archivos();
     
     /**
@@ -44,7 +45,8 @@ public class Matematicas {
             break;
         }
 
-        System.out.println("Resuelve la siguente suma: \n"+n1+" "+n2);
+        this.resultado=n1+n2;
+        System.out.println("Resuelve la siguente suma: \n"+n1+" "+n2+"="+(n1+n2)); //DEVTOOL
         return n1+n2;
     }
     
@@ -81,8 +83,8 @@ public class Matematicas {
      * @return  el numero que se hará display en el boton
      */
     public int opcion(int n){
-        int tf=r.nextInt(1);
-        switch(tf){
+        int op=r.nextInt(1);
+        switch(op){
             case 0:return n-r.nextInt(50);
             case 1:return n+r.nextInt(50);
         }
@@ -120,6 +122,21 @@ public class Matematicas {
         this.n2=0;
         this.operacion="";
     }
-    
+
+    public int getN1() {
+        return n1;
+    }
+
+    public int getN2() {
+        return n2;
+    }
+
+    public String getOperacion() {
+        return operacion;
+    }
+
+    public int getResultado() {
+        return resultado;
+    }
     
 }

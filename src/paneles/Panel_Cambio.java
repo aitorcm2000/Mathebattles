@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import mathebattles.Ataque;
-import mathebattles.Criatura;
 import static paneles.MFrame.cl;
 import static paneles.MFrame.pl;
 
@@ -41,13 +40,6 @@ public class Panel_Cambio extends JLayeredPane{
     private static JLabel s_cam_3;
     private static JLabel l_cambio;
     
-    private static JLabel at1;
-    private static JLabel at2;
-    private static JLabel at3;
-    private static JLabel at4;
-    
-    
-    private static Criatura al_ac;
     private static Ataque[] at_ac;
     
     JButton b_cambio_1 = new JButton("Cambio 1");
@@ -57,7 +49,6 @@ public class Panel_Cambio extends JLayeredPane{
 
     public Panel_Cambio() {
         colocarElementos();
-        //actu_at();
     }
     
     public static void cambio(){
@@ -66,53 +57,26 @@ public class Panel_Cambio extends JLayeredPane{
         s_cam_2.setVisible(true);
         s_cam_3.setVisible(true);
     }
-//    public static void actu_at(){
-//        al_ac = Panel_Juego.getAl_ac();
-//        at_ac = al_ac.getAtaques();
-//        
-//        for(Ataque at:at_ac){
-//            System.out.println(at.toString());
-//        }
-//        at1 .setText(at_ac[0].toString());
-//        at2 .setText(at_ac[1].toString());
-//        at3 .setText(at_ac[2].toString());
-//        at4 .setText(at_ac[3].toString());
-//    }
     
-    private void colocarElementos(){        
+    private void colocarElementos(){
+        
         s_cam_1 = new JLabel(s4_ajustado);
         s_cam_2 = new JLabel(s5_ajustado);
         s_cam_3 = new JLabel(s6_ajustado);
         
         l_cambio = new JLabel(f_cambio_ajustado);
-        al_ac = Panel_Juego.getAl_ac();
-        at_ac = al_ac.getAtaques();
-        
-        
-        at1 = new JLabel(at_ac[0].toString());
-        at2 = new JLabel(at_ac[1].toString());
-        at3 = new JLabel(at_ac[2].toString());
-        at4 = new JLabel(at_ac[3].toString());
         
         b_cambio_1.setBounds(50, 505, 300, 80);
         b_cambio_2.setBounds(400, 505, 300, 80);
         b_cambio_3.setBounds(50, 605, 300, 80);
-        b_cambio_atras.setBounds(400, 605, 300, 80);
-       
-        at1.setBounds(250, 50, 300, 300);
-        at2.setBounds(250, 100, 300, 300);
-        at3.setBounds(250, 150, 300, 300);
-        at4.setBounds(250, 200, 300, 300);
+        b_cambio_atras.setBounds(400, 605, 300, 80);       
         
         b_cambio_1.setVisible(true);
         b_cambio_2.setVisible(true);
         b_cambio_3.setVisible(true);
         b_cambio_atras.setVisible(true);
         
-        at1.setVisible(true);
-        at2.setVisible(true);
-        at3.setVisible(true);
-        at4.setVisible(true);
+        
         
         b_cambio_atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,10 +105,9 @@ public class Panel_Cambio extends JLayeredPane{
         s_cam_2.setBounds(290, 100, s6_ajustado.getIconWidth(), s6_ajustado.getIconHeight());
         s_cam_3.setBounds(520, 100, s6_ajustado.getIconWidth(), s6_ajustado.getIconHeight());
 
-        l_cambio.setBounds(0, 0, f_cambio_ajustado.getIconWidth(), f_cambio_ajustado.getIconHeight());// Posición y tamaño del segundo JLabel
+        l_cambio.setBounds(0, 0, f_cambio_ajustado.getIconWidth(), f_cambio_ajustado.getIconHeight());
 
-        
-        
+                
         // Añadir los JLabels al JLayeredPane con diferentes niveles
 
         //Cambios
@@ -152,22 +115,12 @@ public class Panel_Cambio extends JLayeredPane{
         add(s_cam_2, 2);
         add(s_cam_3, 3);
 
-
         //HUD
         add(b_cambio_1,10);
         add(b_cambio_2,10);
         add(b_cambio_3,10);
-        add(b_cambio_atras,10);
-        
-        add(at1,10);
-        add(at2,10);
-        add(at3,10);
-        add(at4,10);
-        
-
+        add(b_cambio_atras,10);                
         add(l_cambio,100);
-
-        
     }
     
     private void b_atras_pulsado(java.awt.event.ActionEvent evt) {                                            
@@ -176,22 +129,22 @@ public class Panel_Cambio extends JLayeredPane{
     }
     private void b_cambio_1_pulsado(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        Panel_Juego.setAl_ac(Panel_Juego.c1);
-        Panel_Juego.setSpriteAl(1);
+        Panel_Juego.setAl_ac(0);
+        Panel_Juego.setSpriteAl(0);
 
         cl.show(pl, "Batalla");
     } 
     private void b_cambio_2_pulsado(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        Panel_Juego.setAl_ac(Panel_Juego.c2);
-        Panel_Juego.setSpriteAl(2);
+        Panel_Juego.setAl_ac(1);
+        Panel_Juego.setSpriteAl(1);
 
         cl.show(pl, "Batalla");
     } 
     private void b_cambio_3_pulsado(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        Panel_Juego.setAl_ac(Panel_Juego.c3);
-        Panel_Juego.setSpriteAl(3);
+        Panel_Juego.setAl_ac(2);
+        Panel_Juego.setSpriteAl(2);
 
         cl.show(pl, "Batalla");
     } 

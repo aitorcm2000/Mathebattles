@@ -7,16 +7,11 @@ package paneles;
 import BD.DB_methods;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import mathebattles.Archivos;
 import static mathebattles.Main.mf;
 import mathebattles.Usuario;
 import static paneles.MFrame.cl;
@@ -70,7 +65,7 @@ public class RegScr extends javax.swing.JPanel {
 
         TF_Nombre.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
 
-        CB_Curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2ºESO A", "2ºESO B", "3ºESO A", "3ºESO B", "4ºESO A", "4ºESO B", "1ºDAM" }));
+        CB_Curso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2§A_ESO", "2§B_ESO", "3§A_ESO", "3§B_ESO", "4§A_ESO", "4§B_ESO", "1§DAM" }));
         CB_Curso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_CursoActionPerformed(evt);
@@ -94,6 +89,11 @@ public class RegScr extends javax.swing.JPanel {
         L_DNI.setText("Introduce tu DNI :");
 
         TF_dni.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        TF_dni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_dniActionPerformed(evt);
+            }
+        });
 
         L_OPCIONAL.setText("(Opcional)");
 
@@ -189,11 +189,22 @@ public class RegScr extends javax.swing.JPanel {
                 .addContainerGap(108, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CB_CursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CursoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CB_CursoActionPerformed
-
+    
+    
+    /**
+     * Le falta boton para ir hacia atras
+     * Solamente cierra con confirmacion
+     * fallida por falta de conexion, una confirmacion de que no existe el usuario,
+     * confirmacion porque existe el usuario
+     */
+    
+    /**
+     * Evento de boton para el registro
+     * Hace: Genera una ventana de con los datos del usuario
+     * para que el usuario pueda revisarlos antes de confirmación 
+     * 
+     * @param evt 
+     */
     private void B_Comp_RegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Comp_RegActionPerformed
         // TODO add your handling code here:
         BorderLayout borde = new BorderLayout();
@@ -202,24 +213,49 @@ public class RegScr extends javax.swing.JPanel {
         adv_conf.setLayout(borde);
         JTextArea textoadv;
         
+        /** 
+         * El botón de la ventana emergente de confirmacion
+         * Si reconoce que hay un usuario ya existente cierra el dialogo y advierte mediante
+         * un JLabel de que ya existe el usuario.
+         */
         JButton conf = new JButton("Confirmar");
+        
         conf.addActionListener(new ActionListener(){
+            
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if(!DB_methods.usuarioExiste(TF_Nombre.getText())){
-                    Usuario.us_act.setAlias(TF_Nombre.getText());
-                    Usuario.us_act.setEdad(getCB_Edad());
-                    Usuario.us_act.setId_curso(DB_methods.buscaID_Curso(getCB_Curso()));
-                    Usuario.us_act.setDni(TF_dni.getText());
-                    DB_methods.insertUsuario(Usuario.us_act);
-                    cl.show(pl, "Menu");
-                }else{
-                    Error_User.setVisible(true);
+                try{
+                    if(!DB_methods.usuarioExiste(TF_Nombre.getText())){
+                        Usuario.us_act.setAlias(TF_Nombre.getText());
+                        Usuario.us_act.setEdad(getCB_Edad());
+                        Usuario.us_act.setId_curso(DB_methods.buscaID_Curso(getCB_Curso()));
+                        Usuario.us_act.setDni(TF_dni.getText());
+                        Usuario.us_act.setId_clase(DB_methods.buscaID_Aula(getCB_Aula()));
+                        DB_methods.insertUsuario(Usuario.us_act);
+                        DB_methods.recogeUsuario(Usuario.us_act.getAlias());
+                        Archivos.escribirArchivoObjetos(Usuario.us_act);
+
+                        
+                        cl.show(pl, "Menu");
+                    }else{
+                        adv_conf.dispose();
+                        Error_User.setVisible(true);
+                    }
+
+                    adv_conf.dispose();
+                }catch(NullPointerException ex){
+                    System.out.println("Fallo de conexion con BBDD en Ventana de confirmacion");
+                }finally{
+                    adv_conf.dispose();
                 }
-                
-                adv_conf.setVisible(false);
             }            
         });
+        
+        /**
+         * Text area donde se dejan los datos del usuario para hacer display
+         * No he visto otra forma esto es un poco feo, pero no he encontrado 
+         * como hacer el formateo del texto de forma adecuada.
+        */
         textoadv = new JTextArea();
         textoadv.setBounds(10, 10, 300, 200);
         
@@ -240,27 +276,65 @@ public class RegScr extends javax.swing.JPanel {
         
     }//GEN-LAST:event_B_Comp_RegActionPerformed
 
+    /**
+     * Evento del boton de vuelta a la pantalla del Log In
+     * @param evt 
+     */
     private void B_Reg_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_Reg_LoginActionPerformed
         // TODO add your handling code here:
         cl.show(pl, "Log");
     }//GEN-LAST:event_B_Reg_LoginActionPerformed
 
+    private void TF_dniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_dniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_dniActionPerformed
+
+    private void CB_CursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_CursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CB_CursoActionPerformed
+    
+    
+    
+    /**
+     * Getters para los datos de TextFields y ComboBoxes
+     */
+    
+    /**
+     * Get Aula del ComboBox
+     * @return 
+     */
     public static String getCB_Aula() {
         return CB_Aula.getSelectedItem().toString();
     }
 
+    /**
+     * Get Curso del ComboBox
+     * @return 
+     */
     public static String getCB_Curso() {
         return CB_Curso.getSelectedItem().toString();
     }
 
+    /**
+     * Get Edad del ComboBox
+     * @return 
+     */
     public static int getCB_Edad() {
         return Integer.parseInt(CB_Edad.getSelectedItem().toString());
     }
 
+    /**
+     * Get Alias/Nombre del TextField
+     * @return 
+     */
     public static String getTF_Nombre() {
         return TF_Nombre.getText();
     }
 
+    /**
+     * Get DNI del TextField
+     * @return 
+     */
     public static String getTF_dni() {
         return TF_dni.getText();
     }

@@ -4,7 +4,6 @@
  */
 package mathebattles;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -22,10 +21,10 @@ public class Criatura {
     private final int defensa;
     private final int tipo;
     private final int velocidad;
-    private Ataque a1;
-    private Ataque a2;
-    private Ataque a3;
-    private Ataque a4;
+    private static Ataque a1;
+    private static Ataque a2;
+    private static Ataque a3;
+    private static Ataque a4;
 
     /*
     Esto es un constructor, sirve para poder generar diferentes objetos de esta misma clase,
@@ -97,83 +96,110 @@ public class Criatura {
     public String toString() {
         return nombre + " HP: "+vida_act+"/"+ vida + " Atk:" + ataque + " Def:" + defensa + "" + tipo + ", velocidad=" + velocidad;
     }
-    
+
     /**
-     * Creacion de criaturas
+     * No da tiempo a meterlo
      */
-    
-    
-    
-    /**
-     * Resta el daño recibido a la vida actual instancia 
-     * de la criatura que lo llama
-     * @param daño     public ArrayList<Ataque> at_c1= new ArrayList<>();
-    at_c1
-     */
-    public static void Daño(int daño){
-        vida_act-=daño;
-    }
-    
-    /**
-     * Calculo del daño que va a recibir la criatura enemiga
-     * @param at
-     * @param en
-     * @return 
-     */
-    public int Atacar(Ataque at, Criatura en){
-        float Rec_Dmg;
-        Rec_Dmg=((at.getPot()*(this.getAtaque()/en.getDefensa()))/30)*(STAB(at)*TAD(at, en));
-        return (int)Rec_Dmg;
-    }
-    
-    /**
-     * SAME TYPE ATTACK BOOST
-     * si el ataque es del mismo tipo que el atacante obtiene beneficio de daño
-     * @param at
-     * @return 
-     */
-    private float STAB(Ataque at){
-        if(getTipo()==at.getTipo()){
-            return 1.5f;
-        }else{return 1;}
-    }
-    
-    /**
-     * 
-     * @param at
-     * @param en
-     * @return 
-     */
-    private float TAD(Ataque at,Criatura en){
-        
-        return 1;
-    }
-    
-    /**
-     * 
-     * @param us
-     * @param en
-     * @param us_atk
-     * @param en_atk
-     * @return 
-     */
-    public static int orden (Criatura us,Criatura en,int us_atk, int en_atk)  {
-        
-        int orden=(us.velocidad+(us.ataques[us_atk].getPrio()*10))-(en.velocidad+(en.ataques[en_atk].getPrio()*10));
-        if(orden>0){
-            return 0;
-        }else if(orden == 0){
-            switch (rng.nextInt(2)) {
-                case 0:
-                    return 0;
-                case 1:
-                    return 1;
+            /**
+             * Resta el daño recibido a la vida actual instancia 
+             * de la criatura que lo llama
+             * @param daño    
+             */
+            public void Daño(int daño){
+                this.vida_act-=daño;
             }
-        }else{
-            return 1;
-        }
-        return 1;
-    }
+
+            /**
+             * Calculo del daño que va a recibir la criatura enemiga
+             * @param at
+             * @param en
+             * @return 
+             */
+            public int Atacar(Ataque at, Criatura en){
+                float Rec_Dmg;
+                Rec_Dmg=((at.getPot()*(this.getAtaque()/en.getDefensa()))/30)*(STAB(at)*TAD(at, en));
+                return (int)Rec_Dmg;
+            }
+
+            /**
+             * SAME TYPE ATTACK BOOST
+             * si el ataque es del mismo tipo que el atacante obtiene beneficio de daño
+             * @param at
+             * @return 
+             */
+            private float STAB(Ataque at){
+                if(getTipo()==at.getTipo()){
+                    return 1.5f;
+                }else{return 1;}
+            }
+
+            /**
+             * 
+             * @param at
+             * @param en
+             * @return 
+             */
+            private float TAD(Ataque at,Criatura en){
+
+                return 1;
+            }
+
+            /**
+             * 
+             * @param us
+             * @param en
+             * @param us_atk
+             * @param en_atk
+             * @return 
+             */
+            public static int orden (Criatura us,Criatura en,int us_atk, int en_atk)  {
+                Ataque at_aliado=us.a1;
+                Ataque at_enemigo=en.a1;
+                switch(us_atk){
+                    case 1:
+                        at_aliado=us.a1;
+                    break;
+                    case 2:
+                        at_aliado=us.a2;
+                    break;
+                    case 3:
+                        at_aliado=us.a3;
+                    break;
+                    case 4:
+                        at_aliado=us.a4;
+                    break;
+                }
+
+                switch(us_atk){
+                    case 1:
+                        at_enemigo=en.a1;
+                    break;
+                    case 2:
+                        at_enemigo=en.a2;
+                    break;
+                    case 3:
+                        at_enemigo=en.a3;
+                    break;
+                    case 4:
+                        at_enemigo=en.a4;
+                    break;
+                }
+
+                int orden=(us.velocidad+(at_aliado.getPrio()*10))-(en.velocidad+(at_enemigo.getPrio()*10));
+                if(orden>0){
+                    return 0;
+                }else if(orden == 0){
+                    switch (rng.nextInt(2)) {
+                        case 0:
+                            return 0;
+                        case 1:
+                            return 1;
+                    }
+                }else{
+                    return 1;
+                }
+                return 1;
+            }
     
     
 }
